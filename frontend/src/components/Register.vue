@@ -1,6 +1,7 @@
 <template>
   <div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form class="form_register" @submit="onSubmit" @reset="onReset" v-if="show">
+      <h1 class="title_form"> Pas encore inscrit ? </h1>
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -16,20 +17,20 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group id="input-group-2" label="Votre nom" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.name"
-          placeholder="Enter name"
+          placeholder="Entrez votre nom et votre prénom"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+      <b-form-group id="input-group-3" label="Service" label-for="input-3">
         <b-form-select
           id="input-3"
-          v-model="form.food"
-          :options="foods"
+          v-model="form.service"
+          :options="services"
           required
         ></b-form-select>
       </b-form-group>
@@ -45,8 +46,8 @@
         </b-form-checkbox-group>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">Envoyer</b-button>
+      <b-button type="reset" variant="danger">Annuler</b-button>
     </b-form>
     
   </div>
@@ -54,16 +55,25 @@
 
 <script>
   export default {
-      name: "PageAccount",
+      name: 'Register',
     data() {
       return {
         form: {
           email: '',
           name: '',
-          food: null,
+          service: null,
           checked: []
         },
-        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        services: [{ 
+          text: 'Selectionnez votre service', value: null }, 
+          'Ressources Humaines',
+          'Commerce',
+          'Comptabilité',
+          'Marketing',
+          'Informatique',
+          'Design',
+          'Bureau des études'
+          ],
         show: true
       }
     },
@@ -77,7 +87,7 @@
         // Reset our form values
         this.form.email = ''
         this.form.name = ''
-        this.form.food = null
+        this.form.service = null
         this.form.checked = []
         // Trick to reset/clear native browser form validation state
         this.show = false
@@ -90,5 +100,16 @@
 </script>
 
 <style>
-
+  .form_register {
+    margin: 20px;
+    padding: 30px;
+    font-size: 18px;
+    box-shadow: lightgrey 2px 5px 10px;
+    border-radius: 10px;
+  }
+  .title_form{
+    text-align: center;
+    color: orange;
+    font-size: 25px;
+  }
 </style>
