@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <b-form class="form_register" @submit="onSubmit" @reset="onReset" v-if="show">
+  <div class="container"> 
+    <div class="row">
+    <b-form class="form_register col-md-8" @submit="onSubmit" @reset="onReset" v-if="show">
       <h1 class="title_form"> Pas encore inscrit ? </h1>
       <b-form-group
         id="input-group-1"
@@ -49,6 +50,7 @@
       <b-button type="submit" variant="primary">Envoyer</b-button>
       <b-button type="reset" variant="danger">Annuler</b-button>
     </b-form>
+    </div>
     
   </div>
 </template>
@@ -101,16 +103,21 @@
 
 <style>
   .form_register {
-    margin: 20px;
+    margin-bottom: 20px;
     padding: 30px;
     font-size: 18px;
-    box-shadow: lightgrey 2px 5px 10px;
+    box-shadow: lightgray 2px 5px 10px;
     border-radius: 10px;
+    background-color: white;
+    opacity: 0.9;
   }
   .title_form{
     text-align: center;
     color: #E05600;
     font-size: 25px;
     font-weight: bold;
+  }
+  .input_form {
+      font-size: 15px;
   }
 </style>

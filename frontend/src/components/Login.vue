@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <b-form class="form_login" @submit="onSubmit" @reset="onReset" v-if="show">
+  
+    <div class="container">
+      <div class="row">
+    <b-form class="form_login col-md-12" @submit="onSubmit" @reset="onReset" v-if="show">
       <h1 class="title_form"> Identifiez-vous </h1>
       <b-form-group 
         id="input-group-1"
@@ -40,8 +42,8 @@
       <b-button type="submit" variant="primary">Envoyer</b-button>
       <b-button type="reset" variant="danger">Annuler</b-button>
     </b-form>
-    
-  </div>
+    </div>
+    </div>    
 </template>
 
 <script>
@@ -72,7 +74,7 @@
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
-          this.show = true
+        this.show = true
         })
       }
     }
@@ -81,14 +83,13 @@
 
 <style>
   .form_login {
-    margin: 20px;
+    margin-bottom: 20px;
     padding: 30px;
     font-size: 18px;
-    box-shadow: black 2px 5px 10px;
+    box-shadow: lightgray 2px 5px 10px;
     border-radius: 10px;
     background-color: white;
     opacity: 0.9;
-    width: 500px;
   }
   .title_form{
     text-align: center;

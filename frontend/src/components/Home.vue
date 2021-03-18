@@ -24,6 +24,7 @@
     </div>
     </div>
     
+  <!--mettre Post.vue-->
   </div>
 </template>
 
