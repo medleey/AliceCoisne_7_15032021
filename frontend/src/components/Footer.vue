@@ -11,9 +11,15 @@
 export default {
   name: "Footer"
  
-};
+}
 </script>
 
 <style>
-    
+    /*footer {
+      position:absolute;
+      bottom:0;
+      width:100%;
+      padding-top:50px;
+      height:50px;
+    }*/
 </style>
