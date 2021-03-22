@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-    <div class="container">
+    <div class="container mt-3 mb-4">
     <h1>Bienvenu {{user}}</h1>
     </div>
     <!-- Ajouter du texte -->
-    <div class="row">
-      <div class="col-8 bg-post">
+    <div>
+      <div class="col-8 bg-post ">
     <h2>Exprimez-vous !</h2>
     <b-form-textarea
       id="textarea"
@@ -15,22 +15,26 @@
       max-rows="6"
     ></b-form-textarea>
 
-    <pre class="mt-3 mb-0">{{ text }}</pre>
+    <pre class="mt-1 mb-0">{{ text }}</pre>
   
     <!-- Ajouter une image -->
     <b-form-file v-model="file1" class="mt-3" plain></b-form-file>
-    <div class="mt-3 select-file">Fichier sélectionné: {{ file1 ? file1.name : '' }}</div> 
-    <b-button class="send-post navbar-right" variant="outline-primary">Publier</b-button>  
+    <div class="mt-1 select-file">Fichier sélectionné: {{ file1 ? file1.name : '' }}</div> 
+    <b-button class="mt-2 send-post navbar-right" variant="outline-primary">Publier</b-button>  
     </div>
     </div>
     
   <!--mettre Post.vue-->
+  <Post />
+  <Post />
   </div>
 </template>
 
 <script>
+import Post from './Post'
 export default {
   name: 'Home',
+  components:{ Post},
   data () {
     return {
       file1: null,

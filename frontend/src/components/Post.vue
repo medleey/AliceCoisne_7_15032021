@@ -1,8 +1,8 @@
 <template>
-<div class="container post">
+<div class="container post mt-3 mb-4">
     <div class="row">
         <div class="col">
-    <b-list-group-item class='name-user'>
+    <b-list-group-item class='name-user pl-0'>
       <b-avatar href="#foo" variant="primary" text="FF" class="align-baseline"></b-avatar>
       Link Text Avatar
     </b-list-group-item>  
@@ -11,6 +11,8 @@
   <b-img src="https://picsum.photos/1024/400/?image=41" 
   fluid alt="Responsive image" class="img-post"></b-img>
     </div>
+        <p class="date">Publié le ... à </p>
+        <NewComment />
     </div>
     </div>
     
@@ -18,7 +20,9 @@
 </template>
 
 <script>
+import NewComment from './NewComment'
 export default {
+  components: { NewComment},
 
 }
 </script>
@@ -38,6 +42,11 @@ export default {
 
     .name-user {
         border: none;
+    }
+    .date {
+        margin-top: 10px;
+        font-size: 14px;
+        font-style: italic;
     }
 </style>
 
