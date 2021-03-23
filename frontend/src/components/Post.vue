@@ -12,6 +12,9 @@
   fluid alt="Responsive image" class="img-post"></b-img>
     </div>
         <p class="date">Publié le ... à </p>
+        <Comment />
+        <Comment />
+        <Comment />
         <NewComment />
     </div>
     </div>
@@ -21,8 +24,12 @@
 
 <script>
 import NewComment from './NewComment'
+import Comment from './Comment'
 export default {
-  components: { NewComment},
+  components: { 
+      NewComment,
+      Comment
+      },
 
 }
 </script>
