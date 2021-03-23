@@ -7,7 +7,7 @@
         id="input-group-1"
         label="Votre adresse mail professionnelle"
         label-for="input-1"
-        description="Nous ne partageaons pas vos données."
+        description="Nous ne partageons pas vos données."
       >
         <b-form-input class="input_form"
           id="input-1"
@@ -21,13 +21,22 @@
       <b-form-group id="input-group-2" label="Votre nom" label-for="input-2">
         <b-form-input class="input_form"
           id="input-2"
-          v-model="form.name"
-          placeholder="Entrez votre nom et votre prénom"
+          v-model="form.lastName"
+          placeholder="Entrez votre nom"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Service" label-for="input-3">
+      <b-form-group id="input-group-3" label="Votre prénom" label-for="input-3">
+        <b-form-input class="input_form"
+          id="input-2"
+          v-model="form.fisrtName"
+          placeholder="Entrez votre prénom"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-4" label="Service" label-for="input-4">
         <b-form-select class="input_form"
           id="input-3"
           v-model="form.service"
@@ -36,16 +45,6 @@
         ></b-form-select>
       </b-form-group>
 
-      <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-        <b-form-checkbox-group
-          v-model="form.checked"
-          id="checkboxes-4"
-          :aria-describedby="ariaDescribedby"
-        >
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
 
       <b-button type="submit" variant="primary">Envoyer</b-button>
       <b-button type="reset" variant="danger">Annuler</b-button>
@@ -62,9 +61,9 @@
       return {
         form: {
           email: '',
-          name: '',
-          service: null,
-          checked: []
+          lastName: '',
+          firstName: '',
+          service: null
         },
         services: [{ 
           text: 'Selectionnez votre service', value: null }, 
@@ -90,7 +89,6 @@
         this.form.email = ''
         this.form.name = ''
         this.form.service = null
-        this.form.checked = []
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {

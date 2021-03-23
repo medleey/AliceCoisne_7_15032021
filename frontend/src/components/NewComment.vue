@@ -19,6 +19,7 @@
 
 <script type="text/babel">
 export default {
+  name:'NewComment',
   props: ['dataComments'],
   data () {
     return {
