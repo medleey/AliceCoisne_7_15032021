@@ -1,11 +1,12 @@
 <template>
-  <div class="hello">
-    <div class="container mt-3 mb-4">
+  <div>
+    <div class="container title mt-3 mb-4">
     <h1>Bienvenu {{user}}</h1>
     </div>
     <!-- Ajouter du texte -->
-    <div>
-      <div class="col-8 bg-post ">
+    <div class="container">
+    <div class="row">
+      <div class="col bg-post">
     <h2>Exprimez-vous !</h2>
     <b-form-textarea
       id="textarea"
@@ -21,6 +22,7 @@
     <b-form-file v-model="file1" class="mt-3" plain></b-form-file>
     <div class="mt-1 select-file">Fichier sélectionné: {{ file1 ? file1.name : '' }}</div> 
     <b-button class="mt-2 send-post navbar-right" variant="outline-primary">Publier</b-button>  
+    </div>
     </div>
     </div>
     
@@ -57,7 +59,7 @@ h1 {
   border-radius: 10px;
   box-shadow: lightgray 2px 5px 10px;
 }
-.container {
+.title {
   display: flex;
   justify-content: center;
 }
@@ -69,7 +71,6 @@ h2 {
   background-color: white;
   box-shadow: lightgray 2px 5px 10px;
   border-radius: 10px;
-  margin: 20px;
   padding: 20px;
 }
 .log-img{

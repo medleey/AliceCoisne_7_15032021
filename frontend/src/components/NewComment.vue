@@ -5,12 +5,15 @@
       {{ comment.body }}
     </div>
   </div>
-  <form class="flex flex-row" @submit.prevent="subitComment">
+  <form @submit.prevent="subitComment">
+    <div class="form-group">
     <h3 class="font-normal texte-grey-darkest text-sm mb-3">Écrivez votre commentaire</h3>
-    <textarea class="border rounded p-3 mb-8" v-model="comment"></textarea>
+    <textarea class="border rounded p-3 mb-8 w-100" v-model="comment"></textarea>
+    </div>
     <button type="submit" class="border rounded py-2">Envoyer mon commentaire</button>
+    
   </form>
-  </div>
+</div>
  
 </template>
 

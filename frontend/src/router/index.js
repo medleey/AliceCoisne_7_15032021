@@ -33,7 +33,7 @@ export default new Router({
       component: Post
     },
     {
-      path: 'account',
+      path: '/account',
       name: 'Account',
       component: Account
     }
