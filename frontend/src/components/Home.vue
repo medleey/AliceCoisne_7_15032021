@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container title mt-3 mb-4">
-    <h1>Bienvenu {{user}}</h1>
+    <h1>{{ text }}{{user}}</h1>
     </div>
     <!-- Ajouter du texte -->
     <div class="container">
@@ -15,8 +15,6 @@
       rows="3"
       max-rows="6"
     ></b-form-textarea>
-
-    <pre class="mt-1 mb-0">{{ text }}</pre>
   
     <!-- Ajouter une image -->
     <b-form-file v-model="file1" class="mt-3" plain></b-form-file>
@@ -33,7 +31,8 @@
 </template>
 
 <script>
-import Post from './Post'
+import Post from './Post.vue'
+
 export default {
   name: 'Home',
   components:{ Post},
@@ -41,7 +40,7 @@ export default {
     return {
       file1: null,
       user: 'John Doe',
-      text: ''
+      text: "Bienvenue sur le fil d'actualités ",
     }
   }
 }
