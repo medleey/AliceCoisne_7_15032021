@@ -12,10 +12,14 @@
         <b-form-input class="input_form"
           id="input-1"
           v-model="form.email"
-          type="email"
+          type="text"
           placeholder="Votre email"
           required
+          :class="error.email ? 'border-red' : ''"
         ></b-form-input>
+        <p class="mb-0 error" v-if="error.email">
+          {{ error.email }}
+        </p>
       </b-form-group>
 
       <b-form-group id="input-group-2" label="Votre nom" label-for="input-2">
@@ -29,18 +33,28 @@
 
       <b-form-group id="input-group-3" label="Votre prénom" label-for="input-3">
         <b-form-input class="input_form"
-          id="input-2"
-          v-model="form.fisrtName"
+          id="input-3"
+          v-model="form.firstName"
           placeholder="Entrez votre prénom"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-4" label="Service" label-for="input-4">
+      <b-form-group id="input-group-4" label="Votre mot de passe" label-for="input-4">
+        <b-form-input class="input_form"
+          id="input-4"
+          v-model="form.password"
+          type="password"
+          placeholder="Entrez votre mot de passe"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-5" label="Service" label-for="input-5">
         <b-form-select class="input_form"
-          id="input-3"
+          id="input-5"
           v-model="form.service"
-          :options="services"
+          :options="service"
           required
         ></b-form-select>
       </b-form-group>
@@ -55,6 +69,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
       name: 'Register',
     data() {
@@ -65,7 +80,10 @@
           firstName: '',
           service: null
         },
-        services: [{ 
+        error: {
+          email: false
+        },
+        service: [{ 
           text: 'Selectionnez votre service', value: null }, 
           'Ressources Humaines',
           'Commerce',
@@ -81,7 +99,15 @@
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+        console.log(this.form)
+
+        axios
+          .post("http://localhost:3000/api/users/register", this.form)
+          .then((response) => {
+            console.log(response)
+        }).catch((error) => {
+          this.error = error.response.data
+        })
       },
       onReset(event) {
         event.preventDefault()
@@ -117,5 +143,12 @@
   }
   .input_form {
       font-size: 15px;
+  }
+  .error {
+    color:crimson;
+    font-size: 14px;
+  }
+  .border-red {
+    border-color: crimson;
   }
 </style>

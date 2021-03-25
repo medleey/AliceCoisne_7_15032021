@@ -1,31 +1,39 @@
 const bcrypt = require('bcrypt'); //données de cryptage et hachage 
 const jwt = require('jsonwebtoken');
-
-const User = require('../models/user_model');
+const db = require('../models');
+let validator = require("email-validator");
+//const User = require('../models/user_model');
 
 //POUR S'INSCRIRE
 exports.register = (req, res, next) => {
+  
   bcrypt.hash(req.body.password, 10) // plus il y a de boucles, plus c'est dur de casser de code = salage du mdp
     .then(hash => {
-      //ajouter regexp 
-      const reEmail = (/^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i); //vérifie que l'email est correctement saisi
-      let formValide = reEmail.test(email.toLowerCase());
+      //vérification email via validator.validate (package - npm install)
+      let formValide = validator.validate(req.body.email); // true
       if (formValide) { 
-        email
-        .then(() => res.status(201).json({
+        res.status(201).json({
           message: 'adresse mail valide'
-        }))
-        .catch(error => res.status(400).json({ 
-          message: 'adresse mail non valide' }));
-        };
-      const user = new User({
+        })
+      } else {
+        res.status(400).json({ 
+          email: 'Le format de votre adresse est invalide'
+        })
+      }
+      
+      const user = db.users.create({ //permet de créer un nouvel user
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
-        password: hash
-      });
-      user.save()
-        .then(() => res.status(201).json({
-          message: 'Utilisateur créé !'
-        }))
+        password: hash,
+        service: req.body.service
+      })
+        .then((user) => {
+          console.log(user);
+          res.status(201).json({
+              message: 'Utilisateur créé !'
+            })
+        })
         .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));
