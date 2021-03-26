@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
   export default {
       name: 'Register',
     data() {
@@ -104,10 +104,14 @@ import axios from 'axios'
         axios
           .post("http://localhost:3000/api/users/register", this.form)
           .then((response) => {
-            console.log(response)
+            //SUCCES 
+            this.$router.push({name: 'Login', 
+              params:{validRegister: true, 
+              emailUser: this.form.email} //permet de renvoyer un msg pour l'inscription
+            }); 
         }).catch((error) => {
-          this.error = error.response.data
-        })
+          this.error = error.response.data;
+        });
       },
       onReset(event) {
         event.preventDefault()

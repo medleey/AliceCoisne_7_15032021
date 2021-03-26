@@ -1,47 +1,49 @@
 <template>
-  
-    <div class="container">
-      <div class="row">
-    <b-form class="form_login col-md-12" @submit="onSubmit" @reset="onReset" v-if="show">
-      <h1 class="title_form"> Identifiez-vous </h1>
-      <b-form-group 
-        id="input-group-1"
-        label="Votre adresse mail professionnelle"
-        label-for="input-1"
-        description="Nous ne partageons pas vos données."
-      >
-        <b-form-input class="input_form"
-          id="input-1"
-          v-model="form.email"
-          type="email"
-          placeholder="Votre email"
-          required
-        ></b-form-input>
-      </b-form-group>
+  <div class="container">
+    <p v-if="$route.params.validRegister">Vous êtes bien inscrit, veuillez-vous connecter :)</p>
+    <div class="row">
+        <b-form class="form_login col-md-12" @submit="onSubmit" @reset="onReset" v-if="show">
+          <h1 class="title_form"> Identifiez-vous </h1>
+          <b-form-group 
+            id="input-group-1"
+            label="Votre adresse mail professionnelle"
+            label-for="input-1"
+            description="Nous ne partageons pas vos données."
+          >
+            <b-form-input class="input_form"
+              id="input-1"
+              v-model="form.email"
+              type="email"
+              placeholder="Votre email"
+              required
+            ></b-form-input>
+          </b-form-group>
 
-      <b-form-group id="input-group-2" label="Mot de passe" label-for="input-2">
-        <b-form-input class="input_form"
-          id="input-2"
-          v-model="form.password"
-          placeholder="Entrez votre mot de passe"
-          required
-        ></b-form-input>
-      </b-form-group>
+          <b-form-group id="input-group-2" label="Mot de passe" label-for="input-2">
+            <b-form-input class="input_form"
+              id="input-2"
+              v-model="form.password"
+              type= "password"
+              placeholder="Entrez votre mot de passe"
+              required
+            ></b-form-input>
+          </b-form-group>
 
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Annuler</b-button>
-    </b-form>
-    </div>
-    </div>    
+          <b-button type="submit" variant="primary">Envoyer</b-button>
+          <b-button type="reset" variant="danger">Annuler</b-button>
+        </b-form>
+  </div>
+  </div>    
 </template>
 
 <script>
+import axios from 'axios';
   export default {
       name: 'Login',
       data() {
       return {
         form: {
-          email: '',
+          email: this.$route.params.emailUser, //permet de récupérer l'email du nouvel utilisateur à partir de la page 'register'
           password: '',
         },
         show: true
