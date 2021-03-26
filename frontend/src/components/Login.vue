@@ -57,7 +57,10 @@ import axios from 'axios';
       axios
           .post("http://localhost:3000/api/users/login", this.form)
           .then((response) => {
-            console.log(response)
+            localStorage.token = response.data.token; 
+            this.$router.push({
+              name: 'Home'
+            });
         }).catch((error) => {
           this.error = error.response.data
         })
