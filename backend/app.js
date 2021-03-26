@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const userRoute = require('./routes/user_routes');
 const postRoute = require('./routes/post_routes');
-const commentRoute = require('.routes/comment_routes')
+const commentRoute = require('./routes/comment_routes')
 
 
 require('dotenv-expand')(require('dotenv').config()); // in just single line

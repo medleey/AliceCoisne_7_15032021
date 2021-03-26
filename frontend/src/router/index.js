@@ -15,13 +15,11 @@ export default new Router({
       name: 'Home',
       component: Home
     },
-
     {
       path: '/register',
       name: 'Register',
       component: Register
     },
-
     {
       path: '/login',
       name: 'Login',
@@ -37,6 +35,5 @@ export default new Router({
       name: 'Account',
       component: Account
     }
-
   ]
 })
