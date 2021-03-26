@@ -10,10 +10,10 @@
 
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a href="/" class="nav-link"> Se connecter </a>
+            <router-link to="/login" class="nav-link"> Se connecter </router-link>
           </li>
           <li class="nav-item">
-            <a href="/" class="nav-link"> S'inscrire </a>
+            <router-link to="/register" class="nav-link"> S'inscrire </router-link>
           </li>
         </ul>
       </nav>

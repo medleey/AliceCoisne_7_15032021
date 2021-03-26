@@ -128,12 +128,13 @@ import axios from 'axios'
 <style>
   .form_register {
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 30px;
     font-size: 18px;
     box-shadow: lightgray 2px 5px 10px;
     border-radius: 10px;
     background-color: white;
-    opacity: 0.9;
   }
   .title_form{
     text-align: center;

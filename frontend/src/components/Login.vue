@@ -50,22 +50,29 @@
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
-        },
+        console.log(this.form)
+
+      axios
+          .post("http://localhost:3000/api/users/login", this.form)
+          .then((response) => {
+            console.log(response)
+        }).catch((error) => {
+          this.error = error.response.data
+        })
+      },
+
       onReset(event) {
         event.preventDefault()
         // Reset our form values
         this.form.email = ''
         this.form.name = ''
-        this.form.service = null
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
         this.show = true
         })
       }
-    }
-  }
+    }}
 </script>
 
 <style>
@@ -76,7 +83,6 @@
     box-shadow: lightgray 2px 5px 10px;
     border-radius: 10px;
     background-color: white;
-    opacity: 0.9;
   }
   .title_form{
     text-align: center;
