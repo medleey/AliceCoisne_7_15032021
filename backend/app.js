@@ -34,8 +34,8 @@ app.use(bodyParser.json()); //fichier de configuration
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/users', userRoute);
-app.use('api/posts', postRoute);
-app.use('api/comments', commentRoute);
+app.use('/api/posts', postRoute);
+app.use('/api/comments', commentRoute);
 
 
 module.exports = app;

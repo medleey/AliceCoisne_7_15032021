@@ -37,7 +37,7 @@ exports.register = (req, res, next) => {
 
 //POUR SE CONNECTER
 exports.login = (req, res, next) => {
-  db.users.findOne({ where: {email:                                                                             req.body.email} }) //va rechercher l'adresse mail entrée 
+  db.users.findOne({ where: {email: req.body.email} }) //va rechercher l'adresse mail entrée 
     .then(user => {
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé !' }); 

@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="container title mt-3 mb-4">
-    <h1>{{ text }}{{user}}</h1>
+    <h1>{{ welcome }}{{ user }}</h1>
     </div>
     <!-- Ajouter du texte -->
     <div class="container">
     <div class="row">
-      <div class="col bg-post">
+      <b-form class="col bg-post" @submit="onSubmit" @reset="onReset" >
     <h2>Exprimez-vous !</h2>
     <b-form-textarea
       id="textarea"
@@ -19,8 +19,8 @@
     <!-- Ajouter une image -->
     <b-form-file v-model="file1" class="mt-3" plain></b-form-file>
     <div class="mt-1 select-file">Fichier sélectionné: {{ file1 ? file1.name : '' }}</div> 
-    <b-button class="mt-2 send-post navbar-right" variant="outline-primary">Publier</b-button>  
-    </div>
+    <b-button class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
+    </b-form>
     </div>
     </div>
     
@@ -31,18 +31,40 @@
 </template>
 
 <script>
-import Post from './Post.vue'
+import Post from './Post.vue';
+import axios from "axios"
 
 export default {
   name: 'Home',
-  components:{ Post},
+  components:{ Post },
   data () {
     return {
       file1: null,
+      text: '',
       user: 'John Doe',
-      text: "Bienvenue sur le fil d'actualités ",
+      welcome: "Bienvenue sur le fil d'actualités ",
     }
-  }
+  },
+    methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        console.log(this.form)
+
+         axios
+        .get("http://localhost:3000/api/posts", {
+          headers: {
+            Authorization: "Bearer " + localStorage.token,
+          },
+        })
+      },
+      onReset(event) {
+        event.preventDefault()
+        // Reset our form values
+        this.text = '',
+        this.file1 = null
+        // Trick to reset/clear native browser form validation state
+      }
+    }
 }
 </script>
 

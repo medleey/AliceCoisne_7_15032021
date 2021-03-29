@@ -14,7 +14,7 @@ exports.createOnePost = (req, res, next) => {
 
 //POUR RECHERCHER TOUS LES POSTS
   exports.getAllPosts = (req, res, next) => { //req = request, res = response 
-    Post.find()//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
+    db.posts.findAll()//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
       .then(posts => res.status(200).json(posts))
       .catch(error => res.status(400).json({ error }));
   };
