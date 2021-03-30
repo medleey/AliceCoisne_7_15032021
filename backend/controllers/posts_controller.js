@@ -5,7 +5,7 @@ const Post = require('../models/post');
 exports.createOnePost = (req, res, next) => {
   console.log(req.body)
     if (req.body.imageUrl) {
-      req.body.image = `${req.protocol}://${req.get("host")}/images/${req.body.imageUrl}`;
+      req.body.image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
     }
     db.posts
       .create(req.body)
@@ -15,7 +15,9 @@ exports.createOnePost = (req, res, next) => {
 
 //POUR RECHERCHER TOUS LES POSTS
   exports.getAllPosts = (req, res, next) => { //req = request, res = response 
-    db.posts.findAll()//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
+    db.posts.findAll({
+      order: [['createdAt', 'DESC']]
+    })//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
       .then(posts => res.status(200).json(posts))
       .catch(error => res.status(400).json({ error }));
   };

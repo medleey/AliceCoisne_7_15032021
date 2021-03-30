@@ -8,11 +8,13 @@
     </b-list-group-item>  
 
     <div>
-  <b-img src="https://picsum.photos/1024/400/?image=41" 
+  <b-img :src="this.post.image" 
   fluid alt="Responsive image" class="img-post"></b-img>
+  
     </div>
-        <p class="date">Publié le ... à </p>
-        <Comment />
+        <p class="date">Publié {{this.date}} </p>
+        <p>{{this.post.content}}</p>
+        <!--<Comment v-for="singlePost in allPosts" :key="singlePost.id" :post="singlePost"/>-->
         <Comment />
         <Comment />
         <NewComment />
@@ -25,15 +27,28 @@
 <script>
 import NewComment from './NewComment'
 import Comment from './Comment'
+import moment from 'moment'
+
 export default {
+    data() {
+        return{
+            date:''
+        }   
+    },
   components: { 
       NewComment,
       Comment
       },
-
+  props: {
+      post : Object,
+  },
+  mounted () {
+      moment.locale("fr");
+      this.date = moment(this.post.createdAt).fromNow()
+  }    
 }
 </script>
-
+    
 <style>
     .post {
         padding: 10px;

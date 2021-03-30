@@ -6,7 +6,7 @@
     <!-- Ajouter du texte -->
     <div class="container">
     <div class="row">
-      <b-form class="col bg-post" @submit="onSubmit" @reset="onReset" >
+      <b-form class="col bg-post mb-3" @submit="onSubmit" @reset="onReset" >
         <h2>Exprimez-vous !</h2>
       <b-form-textarea
         id="textarea"
@@ -17,7 +17,7 @@
       ></b-form-textarea>
   
     <!-- Ajouter une image -->
-       <div id="preview">
+       <div id="preview" class="mt-3">
           <img v-if="form.imageUrl" :src="form.imageUrl" />
       </div>
         <b-form-file @change="onImageChange"  v-model="form.image" class="mt-3" plain></b-form-file>
@@ -28,8 +28,7 @@
   </div>
     
   <!--mettre Post.vue-->
-  <Post />
-  <Post />
+  <Post v-for="singlePost in allPosts" :key="singlePost.id" :post="singlePost" /> <!--permet de faire la boucle pour afficher tous les posts-->
   </div>
 </template>
 
@@ -51,6 +50,7 @@ export default {
           imageUrl: "",
           text: '',
         },
+      allPosts: [],
     }
   },
     methods: {
@@ -87,13 +87,17 @@ export default {
       }
     },
     mounted: function () {
-     /* axios
+      
+     axios
         .get("http://localhost:3000/api/posts", {
           headers: {
             Authorization: "Bearer " + localStorage.token,
           }
-        })*/
-    }
+        })
+        .then((response) => {
+          this.allPosts = response.data
+        })
+    } 
 }
 </script>
 
@@ -135,5 +139,11 @@ h2 {
 .send-post {
   color: #E05600;
   border-color: #E05600;
+}
+
+#preview>img {
+  width: 200px;
+  height: 200px;
+  object-fit:contain;
 }
 </style>
