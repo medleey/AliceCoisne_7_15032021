@@ -5,7 +5,7 @@ const Post = require('../models/post');
 exports.createOnePost = (req, res, next) => {
   console.log(req.body)
     if (req.body.imageUrl) {
-      req.body.imageUrl = `${req.protocol}://${req.get("host")}/images/${req.body.imageUrl}`;
+      req.body.image = `${req.protocol}://${req.get("host")}/images/${req.body.imageUrl}`;
     }
     db.posts
       .create(req.body)
@@ -44,7 +44,7 @@ exports.createOnePost = (req, res, next) => {
   }
 
   //POUR MODIFIER UN POST
-exports.editOnePost = (req, res, next) => {
+  exports.editOnePost = (req, res, next) => {
   const postObject = req.file ? //si nouvelle image, req.file, sinon traité la requete comme objet directement
     {
       ...JSON.parse(req.body.post), //récupère la chaine de caractère

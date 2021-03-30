@@ -1,28 +1,31 @@
 <template>
   <div>
     <div class="container title mt-3 mb-4">
-    <h1>{{ welcome }}{{ user }}</h1>
+      <h1>{{ welcome }}{{ user }}</h1>
     </div>
     <!-- Ajouter du texte -->
     <div class="container">
     <div class="row">
       <b-form class="col bg-post" @submit="onSubmit" @reset="onReset" >
-    <h2>Exprimez-vous !</h2>
-    <b-form-textarea
-      id="textarea"
-      v-model="text"
-      placeholder="Écrivez votre statut"
-      rows="3"
-      max-rows="6"
-    ></b-form-textarea>
+        <h2>Exprimez-vous !</h2>
+      <b-form-textarea
+        id="textarea"
+        v-model="form.content"
+        placeholder="Écrivez votre statut"
+        rows="3"
+        max-rows="6"
+      ></b-form-textarea>
   
     <!-- Ajouter une image -->
-    <b-form-file v-model="file1" class="mt-3" plain></b-form-file>
-    <div class="mt-1 select-file">Fichier sélectionné: {{ file1 ? file1.name : '' }}</div> 
-    <b-button class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
-    </b-form>
+       <div id="preview">
+          <img v-if="form.imageUrl" :src="form.imageUrl" />
+      </div>
+        <b-form-file @change="onImageChange"  v-model="form.image" class="mt-3" plain></b-form-file>
+        <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
+        <b-button class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
+      </b-form>
     </div>
-    </div>
+  </div>
     
   <!--mettre Post.vue-->
   <Post />
@@ -39,19 +42,37 @@ export default {
   components:{ Post },
   data () {
     return {
-      file1: null,
+      image: null,
       text: '',
       user: 'John Doe',
       welcome: "Bienvenue sur le fil d'actualités ",
+      form: {
+          image: null,
+          imageUrl: "",
+          text: '',
+        },
     }
   },
     methods: {
+      onImageChange(e) { //permet de faire le preview de l'image téléchargée
+        if (e.target.files[0].type.includes("image")) {
+          this.form.image = e.target.files[0];
+          this.form.imageUrl = URL.createObjectURL(this.form.image);
+        }
+      },
       onSubmit(event) {
         event.preventDefault()
         console.log(this.form)
 
+      const postData = new FormData();
+        if (this.form.imageUrl != "") {
+          postData.append("image", this.form.image);
+          postData.append("imageUrl", this.form.image.name);
+        }
+        postData.append("content", this.form.content);
+
           axios
-          .post("http://localhost:3000/api/posts", {
+          .post("http://localhost:3000/api/posts", postData, {
             headers: {
             Authorization: "Bearer " + localStorage.token,
           },
@@ -61,17 +82,17 @@ export default {
         event.preventDefault()
         // Reset our form values
         this.text = '',
-        this.file1 = null
+        this.image = null
         // Trick to reset/clear native browser form validation state
       }
     },
     mounted: function () {
-      axios
+     /* axios
         .get("http://localhost:3000/api/posts", {
           headers: {
             Authorization: "Bearer " + localStorage.token,
-          },
-        })
+          }
+        })*/
     }
 }
 </script>
