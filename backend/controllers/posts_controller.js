@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const Post = require('../models/post');
 
 exports.createOnePost = (req, res, next) => {
+  console.log(req.body)
     if (req.body.imageUrl) {
       req.body.imageUrl = `${req.protocol}://${req.get("host")}/images/${req.body.imageUrl}`;
     }

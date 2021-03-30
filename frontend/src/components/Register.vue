@@ -125,7 +125,7 @@ import axios from 'axios';
           this.show = true
         })
       }
-    }
+    },
   }
 </script>
 

@@ -50,9 +50,9 @@ export default {
         event.preventDefault()
         console.log(this.form)
 
-         axios
-        .get("http://localhost:3000/api/posts", {
-          headers: {
+          axios
+          .post("http://localhost:3000/api/posts", {
+            headers: {
             Authorization: "Bearer " + localStorage.token,
           },
         })
@@ -64,6 +64,14 @@ export default {
         this.file1 = null
         // Trick to reset/clear native browser form validation state
       }
+    },
+    mounted: function () {
+      axios
+        .get("http://localhost:3000/api/posts", {
+          headers: {
+            Authorization: "Bearer " + localStorage.token,
+          },
+        })
     }
 }
 </script>
