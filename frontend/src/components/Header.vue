@@ -7,8 +7,8 @@
         <div class="container">
           <img src="@/assets/logo.png" alt="groupomania logo" class="gm-logo" />
         </div>
-
-        <ul class="navbar-nav mr-auto">
+        <span v-if="user">{{user.firstName}}</span>
+        <ul class="navbar-nav mr-auto" v-if="!user">
           <li class="nav-item">
             <router-link to="/login" class="nav-link"> Se connecter </router-link>
           </li>
@@ -23,8 +23,10 @@
 
 <script>
 export default {
-  name: 'Header'
- 
+  name: 'Header',
+  props: [
+    "user"
+  ]
 }
 </script>
 

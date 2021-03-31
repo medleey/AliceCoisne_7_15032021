@@ -62,3 +62,17 @@ exports.login = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+
+//POUR RECHERCHER LES INFOS USER 
+exports.getOneUser = (req, res, next) => {
+  db.users.findOne({ where: {id: req.params.id} }) //va rechercher l'adresse mail entrée 
+    .then(user => {
+      if (!user) { //! = négation
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' }); 
+      }
+      res.status(200).json({
+        user: user //renvoie l'objet user en entier
+      });
+    })
+    .catch(error => res.status(500).json({ error }));
+};

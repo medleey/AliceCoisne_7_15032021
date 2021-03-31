@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container title mt-3 mb-4">
-      <h1>{{ welcome }}{{ user }}</h1>
+      <h1>{{ welcome }}{{ user.firstName }} {{user.lastName}}</h1>
     </div>
     <!-- Ajouter du texte -->
     <div class="container">
@@ -39,18 +39,20 @@ import axios from "axios"
 export default {
   name: 'Home',
   components:{ Post },
+  props: [
+        "user"
+      ],
   data () {
     return {
-      image: null,
+      image: null, 
       text: '',
-      user: 'John Doe',
       welcome: "Bienvenue sur le fil d'actualités ",
       form: {
           image: null,
-          imageUrl: "",
-          text: '',
+          imageUrl: '',
+          text: ''
         },
-      allPosts: [],
+      allPosts: []
     }
   },
     methods: {
@@ -69,14 +71,22 @@ export default {
           postData.append("image", this.form.image);
           postData.append("imageUrl", this.form.image.name);
         }
-        postData.append("content", this.form.content);
+        postData.append("content", this.form.content ? this.form.content : ''); //condition ternaire, si il ya qqch renvoie, sinon chaine vide
+        postData.append("userId", this.user.id);
 
           axios
           .post("http://localhost:3000/api/posts", postData, {
             headers: {
             Authorization: "Bearer " + localStorage.token,
-          },
-        })
+          }})
+          .then((response) => {
+            this.refreshPage();
+            this.form = {
+              image: null,
+              imageUrl: '',
+              text: ''
+            };
+          })
       },
       onReset(event) {
         event.preventDefault()
@@ -84,19 +94,23 @@ export default {
         this.text = '',
         this.image = null
         // Trick to reset/clear native browser form validation state
+      },
+
+      refreshPage() {
+        axios
+          .get("http://localhost:3000/api/posts", {
+            headers: {
+              Authorization: "Bearer " + localStorage.token,
+            }
+          })
+          .then((response) => {
+            this.allPosts = response.data
+          })
       }
     },
-    mounted: function () {
-      
-     axios
-        .get("http://localhost:3000/api/posts", {
-          headers: {
-            Authorization: "Bearer " + localStorage.token,
-          }
-        })
-        .then((response) => {
-          this.allPosts = response.data
-        })
+    mounted: function () { 
+      this.refreshPage();
+      this.$emit('refreshUserData');
     } 
 }
 </script>

@@ -71,8 +71,12 @@ export default {
         ],
       show: true
     }
-  }
+  },
+  mounted: function () { //permet de refresh les users data, API > BDD > UserId 
+    this.$emit('refreshUserData');
+    }
 }
+
 
 </script>
 
