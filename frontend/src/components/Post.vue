@@ -17,7 +17,7 @@
         <!--<Comment v-for="singlePost in allPosts" :key="singlePost.id" :post="singlePost"/>-->
         <Comment />
         <Comment />
-        <NewComment />
+        <NewComment v-bind:post-id="post.id"/>
     </div>
     </div>
     
