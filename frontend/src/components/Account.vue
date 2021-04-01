@@ -8,7 +8,7 @@
       </div>
     </div>
 
- <div class="container profil w-75 h-100 p-5" >
+ <div class="container profil w-75 h-100 p-5 " >
       <div class="row">
         <div class="col" >
             <h2>Modifier ma photo profil</h2>
@@ -25,10 +25,10 @@
       </div>
       <div class="col">
         <ul class="pl-0">
-            <li>{{lastName}}a</li>
-            <li>{{Name}}b</li>
-            <li>{{password}}c</li>
-            <li>
+            <li>{{user.lastName}}</li>
+            <li>{{user.firstName}}</li>
+            <li>Mot de passe</li>
+            <li> {{user.service}}
               <b-form-group id="input-group-3" label="Service" label-for="input-3"> 
                 <b-form-select class="input_form w-50"
                   id="input-3"
@@ -51,6 +51,9 @@
 <script>
 export default {
   name:'Account',
+  props: [
+    "user"
+  ],
   data () {
     return {   
       form: {

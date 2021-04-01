@@ -40,7 +40,7 @@ exports.createOnePost = (req, res, next) => {
 
   //POUR CHERCHER UN POST 
   exports.getOnePost = (req, res, next) => {
-    Post.findOne({ _id: req.params.id })
+    db.posts.findOne({ _id: req.params.id })
       .then(post => res.status(200).json(post)) //ok
       .catch(error => res.status(404).json({ error })); //objet non trouvé 
   }
@@ -52,18 +52,18 @@ exports.createOnePost = (req, res, next) => {
       ...JSON.parse(req.body.post), //récupère la chaine de caractère
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//permet de modifier une img 
     } : { ...req.body };//corps de la requete 
-  Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id }) //permet de mettre à jour 
+  db.posts.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id }) //permet de mettre à jour 
     .then(() => res.status(200).json({ message: 'Post modifiée !' })) //ok
     .catch(error => res.status(400).json({ error }));
 };
 
 //POUR SUPPRIMER UNE POST 
 exports.deleteOnePost = (req, res, next) => { //permet de supprimer un post
-  Post.findOne({ _id: req.params.id }) //va rechercher le post en question
+  db.posts.findOne({ id: req.params.id }) //va rechercher le post en question
     .then(post => {
       const filename = post.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {
-        Post.deleteOne({ _id: req.params.id }) //supprime le post avec l'id recherché 
+        db.posts.deleteOne({ _id: req.params.id }) //supprime le post avec l'id recherché 
           .then(() => res.status(200).json({ message: 'Post supprimé !' })) //ok 
           .catch(error => res.status(400).json({ error }));
       });

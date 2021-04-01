@@ -5,9 +5,10 @@
         class="navbar navbar-expand-sm navbar-dark bg-secondary mb-3 py-0"
       >
         <div class="container">
-          <img src="@/assets/logo.png" alt="groupomania logo" class="gm-logo" />
+          <router-link to="/">
+            <img src="@/assets/logo.png" alt="groupomania logo" class="gm-logo" />
+          </router-link>
         </div>
-        <span v-if="user">{{user.firstName}}</span>
         <ul class="navbar-nav mr-auto" v-if="!user">
           <li class="nav-item">
             <router-link to="/login" class="nav-link"> Se connecter </router-link>
@@ -15,6 +16,22 @@
           <li class="nav-item">
             <router-link to="/register" class="nav-link"> S'inscrire </router-link>
           </li>
+        </ul>
+        <!--Pour le header lorsque l'on est connecté-->
+        <ul class="navbar-nav mr-auto" v-if="user">
+          <li class="nav-item mt-2 pr-2 name-user">
+            {{user.firstName}} {{user.lastName}}
+          </li>
+          <li class="nav-item">
+            <router-link to="/account" class="nav-link"> Mon compte </router-link>
+          </li>
+          
+            <li class="nav-item nav-link">
+            <a @click="logout" class="logout-btn">
+              Déconnexion 
+               </a>
+            </li>
+         
         </ul>
       </nav>
     </div>
@@ -26,16 +43,38 @@ export default {
   name: 'Header',
   props: [
     "user"
-  ]
+  ],
+  
+  methods: {
+    logout() {
+      localStorage.removeItem('user-token')
+      this.$router.push('/login')
+    }
+  }
 }
+
+
 </script>
 
-<style>
-    .gm-logo {
-        width: 150px;
-    }
-
-    .gm-banner {
-        background-color: grey;
-    }
+<style scoped>
+  .gm-logo {
+      width: 150px;
+  }
+  .container {
+    width: 50%;
+  }
+  img {
+    width: 150px;
+  }
+  .name-user {
+    color: white ;
+    cursor: ;
+  }
+  .gm-banner {
+      background-color: grey;
+  }
+  .logout-btn {
+    cursor: pointer;
+    list-style: none;
+  }
 </style>
