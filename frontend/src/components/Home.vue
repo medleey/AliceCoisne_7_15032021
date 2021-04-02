@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container title mt-3 mb-4">
-      <h1>{{ welcome }}{{ user.firstName }} {{user.lastName}}</h1>
+      <h1 v-if="user">{{ welcome }}{{ user.firstName }} {{user.lastName}}</h1>
     </div>
     <!-- Ajouter du texte -->
     <div class="container">

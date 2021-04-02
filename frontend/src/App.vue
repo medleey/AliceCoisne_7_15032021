@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     
-    <Header v-bind:user="user"/> <!-- 1er user = user du header et le 2ème= celui du data en dessous-->
+    <Header @refreshUserData = "refreshUserData" v-bind:user="user"/> <!-- 1er user = user du header et le 2ème= celui du data en dessous-->
     
     <router-view @refreshUserData = "refreshUserData" v-bind:user="user"/>  <!--évenement qui est référé dans data-->
     <!--
@@ -33,15 +33,19 @@ export default {
   },
   methods: {
     refreshUserData () {
-      axios
-      .get("http://localhost:3000/api/users/" + localStorage.userId, {
-        headers: {
-          Authorization: "Bearer " + localStorage.token,
-        }
-      })
-      .then((response) => {
-        this.user = response.data.user
-      })
+      if(localStorage.userId) { 
+        axios
+        .get("http://localhost:3000/api/users/" + localStorage.userId, {
+          headers: {
+            Authorization: "Bearer " + localStorage.token,
+          }
+        })
+        .then((response) => {
+          this.user = response.data.user
+        })
+      } else {
+        this.user = undefined;
+      }
     }
   },
   mounted: function () { 

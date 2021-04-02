@@ -47,8 +47,9 @@ export default {
   
   methods: {
     logout() {
-      localStorage.removeItem('user-token')
-      this.$router.push('/login')
+      localStorage.clear();
+      this.$router.push('/login');
+      this.$emit('refreshUserData');
     }
   }
 }
@@ -68,7 +69,6 @@ export default {
   }
   .name-user {
     color: white ;
-    cursor: ;
   }
   .gm-banner {
       background-color: grey;
@@ -76,5 +76,6 @@ export default {
   .logout-btn {
     cursor: pointer;
     list-style: none;
+    color:white ;
   }
 </style>

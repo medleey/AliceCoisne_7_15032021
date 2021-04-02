@@ -16,6 +16,9 @@ exports.createOnePost = (req, res, next) => {
 //POUR RECHERCHER TOUS LES POSTS
   exports.getAllPosts = (req, res, next) => { //req = request, res = response 
     db.posts.findAll({
+      include: [
+        {model: db.users, attributes: ['id','profilPicture', 'firstName', 'lastName']}
+      ],
       order: [['createdAt', 'DESC']]
     })//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
       .then(posts => res.status(200).json(posts))
@@ -54,7 +57,7 @@ exports.createOnePost = (req, res, next) => {
     } : { ...req.body };//corps de la requete 
   db.posts.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id }) //permet de mettre à jour 
     .then(() => res.status(200).json({ message: 'Post modifiée !' })) //ok
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(500).json({ error }));
 };
 
 //POUR SUPPRIMER UNE POST 
@@ -65,7 +68,7 @@ exports.deleteOnePost = (req, res, next) => { //permet de supprimer un post
       fs.unlink(`images/${filename}`, () => {
         db.posts.deleteOne({ _id: req.params.id }) //supprime le post avec l'id recherché 
           .then(() => res.status(200).json({ message: 'Post supprimé !' })) //ok 
-          .catch(error => res.status(400).json({ error }));
+          .catch(error => res.status(500).json({ error }));
       });
     })
 };

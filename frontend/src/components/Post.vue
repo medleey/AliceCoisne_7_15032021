@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col">
     <b-list-group-item class='name-user pl-0'>
-      <b-avatar href="#foo" variant="primary" text="FF" class="align-baseline"></b-avatar>
-      Link Text Avatar
+      <b-avatar href="#foo" variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
+      {{this.post.User.firstName}} {{this.post.User.lastName}}
     </b-list-group-item>  
 
     <div>
@@ -15,8 +15,7 @@
         <p class="date">Publié {{this.date}} </p>
         <p>{{this.post.content}}</p>
         <!--<Comment v-for="singlePost in allPosts" :key="singlePost.id" :post="singlePost"/>-->
-        <Comment />
-        <Comment />
+        <Comment  v-for="singleComment in allComments" :key="singleComment.id" :comment="singleComment"/>
         <NewComment v-bind:post-id="post.id"/>
     </div>
     </div>
@@ -41,6 +40,7 @@ export default {
       },
   props: {
       post : Object,
+      comment: Object,
   },
   mounted () {
       moment.locale("fr");
@@ -71,7 +71,3 @@ export default {
         font-style: italic;
     }
 </style>
-
-/*<div class="mb-2">
-    <b-avatar src="https://placekitten.com/300/300" size="6rem"></b-avatar>
-    </div> */

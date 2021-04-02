@@ -14,7 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   post.init({
-    userId: DataTypes.INTEGER,
+    userId: { 
+      type: DataTypes.INTEGER,
+      required: true,
+      references: {
+        model: "User",
+        key: "id",
+      }
+    },
     image: DataTypes.STRING,
     content: DataTypes.TEXT
   }, {

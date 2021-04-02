@@ -17,7 +17,8 @@ exports.register = (req, res, next) => {
           lastName: req.body.lastName,
           email: req.body.email,
           password: hash,
-          service: req.body.service
+          service: req.body.service,
+          isAdmin: false
         })
           .then((user) => {
             console.log(user);
@@ -25,7 +26,7 @@ exports.register = (req, res, next) => {
                 message: 'Utilisateur créé !'
               })
           })
-          .catch(error => res.status(400).json({ error }));
+          .catch(error => res.status(500).json({ error }));
       } else {
         res.status(400).json({ 
           email: 'Le format de votre adresse est invalide'
