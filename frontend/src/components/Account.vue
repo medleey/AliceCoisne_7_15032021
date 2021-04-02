@@ -3,12 +3,12 @@
     <div class="container title">
       <div class="row">
         <div class="col">
-          <h1>Mon compte</h1>
+          <h1 class="title-account">Mon compte</h1>
         </div>
       </div>
     </div>
 
- <div class="container profil w-75 h-100 p-5 " >
+ <div class="container profil w-75 h-100 p-5" >
       <div class="row">
         <div class="col" >
             <h2>Modifier ma photo profil</h2>
@@ -41,7 +41,8 @@
           </ul>
         </div>
         <div class="b-col">
-          <b-button class="btn-delete" variant="danger">Supprimer définitivement mon compte</b-button>
+          <b-button type="button" class="btn-edit" variant="success">Enregistrer</b-button>
+          <b-button class="btn-delete" variant="danger" >Supprimer définitivement mon compte</b-button>
         </div>
       </div>
  </div>
@@ -49,6 +50,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name:'Account',
   props: [
@@ -77,9 +79,8 @@ export default {
   },
   mounted: function () { //permet de refresh les users data, API > BDD > UserId 
     this.$emit('refreshUserData');
-    }
+    },
 }
-
 
 </script>
 
@@ -89,7 +90,7 @@ export default {
   justify-content: center;
 }
 
-h1 {
+.title-account {
   font-weight: bold;
   font-size: 20px;
   text-align: center;

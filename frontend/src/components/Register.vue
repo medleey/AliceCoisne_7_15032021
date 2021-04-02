@@ -1,8 +1,9 @@
 <template>
   <div class="container"> 
     <div class="row">
+    <h1 class="title_form"> Pas encore inscrit ? </h1>
     <b-form class="form_register col-md-8" @submit="onSubmit" @reset="onReset" v-if="show">
-      <h1 class="title_form"> Pas encore inscrit ? </h1>
+      
       <b-form-group
         id="input-group-1"
         label="Votre adresse mail professionnelle"
@@ -129,7 +130,7 @@ import axios from 'axios';
   }
 </script>
 
-<style>
+<style scoped>
   .form_register {
     margin-bottom: 20px;
     margin-left: auto;
