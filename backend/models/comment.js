@@ -14,7 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   comment.init({
-    userId: DataTypes.INTEGER,
+    userId: {
+    type: DataTypes.INTEGER,
+    required: true,
+    references: {
+      model: "User",
+      key:"id",
+    },
+  },
+    postId: DataTypes.INTEGER,
     content: DataTypes.TEXT
   }, {
     sequelize,

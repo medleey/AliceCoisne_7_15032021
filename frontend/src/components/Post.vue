@@ -24,14 +24,16 @@
 </template>
 
 <script>
-import NewComment from './NewComment'
-import Comment from './Comment'
-import moment from 'moment'
+import NewComment from './NewComment';
+import Comment from './Comment';
+import moment from 'moment';
+import axios from 'axios';
 
 export default {
     data() {
         return{
-            date:''
+            date:'',
+            allComments: []
         }   
     },
   components: { 
@@ -40,12 +42,29 @@ export default {
       },
   props: {
       post : Object,
-      comment: Object,
   },
+  methods:{
+      refreshPage() {
+        axios
+          .get("http://localhost:3000/api/posts", {
+            headers: {
+              Authorization: "Bearer " + localStorage.token,
+            }
+          })
+          .then((response) => {
+            this.allPosts = response.data
+          })
+      }
+  },
+
   mounted () {
       moment.locale("fr");
       this.date = moment(this.post.createdAt).fromNow()
-  }    
+  },
+  mounted: function () { 
+      this.refreshPage();
+      this.$emit('refreshUserData');
+    }     
 }
 </script>
     

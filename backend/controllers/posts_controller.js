@@ -22,7 +22,7 @@ exports.createOnePost = (req, res, next) => {
       order: [['createdAt', 'DESC']]
     })//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
       .then(posts => res.status(200).json(posts))
-      .catch(error => res.status(400).json({ error }));
+      .catch(error => res.status(500).json({ error }));
   };
   
   //POUR POSTER UN POST
@@ -38,7 +38,7 @@ exports.createOnePost = (req, res, next) => {
     })
     post.save() // renvoie une Promise
     .then(() => res.status(201).json({ message: 'Post enregistré!' })) //réponse 201 de réussite
-    .catch(error => res.status(400).json({ error })); // message d'erreur générée par mongoose + code erreur 400
+    .catch(error => res.status(500).json({ error })); // message d'erreur générée par mongoose + code erreur 400
   };
 
   //POUR CHERCHER UN POST 

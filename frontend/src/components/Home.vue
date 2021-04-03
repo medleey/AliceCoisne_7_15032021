@@ -34,7 +34,7 @@
 
 <script>
 import Post from './Post.vue';
-import axios from "axios"
+import axios from "axios";
 
 export default {
   name: 'Home',

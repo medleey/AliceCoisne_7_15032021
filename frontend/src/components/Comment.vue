@@ -3,11 +3,11 @@
       <div class="row">
           <div class="col d-flex mb-3">
             <b-list-group-item class='name-user p-0'>
-            <b-avatar href="#foo" size="3rem" variant="primary" text="FF" class="align-baseline"></b-avatar>
+            <b-avatar href="#foo" size="3rem" variant="primary" :src="this.comment.User.profilPicture" class="align-baseline"></b-avatar>
             </b-list-group-item>
             <div class="p-1 ml-2 comment-user">
-                <p class="mb-0"><b>Jean Michel</b></p>
-                <p class="mb-0">Wouah super photo !!</p>
+                <p class="mb-0"><b>{{this.comment.User.firstName}} {{this.comment.User.lastName}}</b></p>
+                <p class="mb-0">{{this.comment.content}}</p>
             </div>
         </div>
     </div> 
@@ -20,7 +20,10 @@ export default {
   data () {
     return { 
     }
-  }
+  },
+  props: {
+      post : Object,
+  },
 } 
 </script>
     

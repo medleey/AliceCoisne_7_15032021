@@ -41,7 +41,7 @@ db.comments = require("./comment.js")(sequelize, Sequelize);
 db.posts.belongsTo(db.users);
 db.users.hasMany(db.posts);
 
-db.posts.belongsTo(db.comments);
-db.comments.hasMany(db.posts);
+db.comments.belongsTo(db.posts);
+db.posts.hasMany(db.comments);
 
 module.exports = db;

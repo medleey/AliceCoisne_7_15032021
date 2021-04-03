@@ -1,8 +1,19 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 
+exports.getAllComments = (req, res, next) => { //req = request, res = response 
+  db.comments.findAll({
+    include: [
+      {model: db.users, attributes: ['id','profilPicture', 'firstName', 'lastName']}
+    ],
+    order: [['createdAt', 'DESC']]
+  })//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus
+    .then(posts => res.status(200).json(posts))
+    .catch(error => res.status(500).json({ error }));
+};
+
 exports.createComment = (req, res, next) => {
-    db.posts
+    db.comments
       .create(req.body)
       .then(() => res.status(201).json({ message: "Post créé !" }))
       .catch((error) => res.status(400).json({ error }));

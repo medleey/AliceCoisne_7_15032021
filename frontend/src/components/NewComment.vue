@@ -8,13 +8,13 @@
   <form @submit.prevent="subitComment">
     <div class="form-group">
     <h3 class="font-normal texte-grey-darkest text-sm mb-3">Écrivez votre commentaire</h3>
-    <textarea class="border rounded p-3 mb-8 w-100" v-model="comment.content"></textarea>
+    <textarea class="border rounded p-3 mb-8 w-100" ></textarea>
     </div>
     <button type="submit" class="border rounded py-2"  v-on:click="createComment">Envoyer mon commentaire</button>
     
   </form>
 </div>
- <!-- à mettre dans le Post.vue + gestion de cette .vue -->
+ <!-- à mettre dans le Post.vue + gestion de cette .vue  v-model="comment.content"-->
 </template>
 
 <script type="text/babel">
