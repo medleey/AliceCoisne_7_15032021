@@ -11,40 +11,44 @@
  <div class="container profil w-75 h-100 p-5" >
       <div class="row">
         <div class="col" >
-            <h2>Modifier ma photo profil</h2>
+            <h2>Ma photo profil</h2>
             <b-avatar src="https://placekitten.com/300/300" size="5rem" class="mr-2"></b-avatar>
-              <b-button type="button" class="btn-edit mr-2" variant="success">Modifier</b-button>
-              <b-button class="btn-delete" variant="danger">Supprimer</b-button>
+              <b-button class="btn-delete" variant="danger" v-if="this.editInfo">Supprimer</b-button>
         </div>
       </div>
       <div class="row d-flex flex-row">
         <div class="col-12 d-flex" >
-            <h2 class="mt-4 mr-2">Modifier mes informations</h2>
-            <b-button type="button" class="btn-edit align-self-end" variant="success">Modifier</b-button>
+            <h2 class="mt-4 mr-2">Mes informations</h2>
         </div>
       </div>
       <div class="col">
-        <ul class="pl-0">
+        <ul class="pl-0" v-if="!this.editInfo">
             <li>{{user.lastName}}</li>
             <li>{{user.firstName}}</li>
-            <li>Mot de passe</li>
-            <li> {{user.service}}
-              <b-form-group id="input-group-3" label="Service" label-for="input-3"> 
-                <b-form-select class="input_form w-50"
-                  id="input-3"
-                  v-model="form.service"
-                  :options="services"
-                  required
-                ></b-form-select>
-              </b-form-group>
-            </li>
+            <li> {{user.service}}</li>
           </ul>
+
+        <ul class="p-0"v-if="this.editInfo">
+          <li>
+            <b-form-group id="input-group-5" label="Service" label-for="input-5">
+              <b-form-select class="input_form"
+                id="input-5"
+                v-model="form.service"
+                :options="service"
+                required
+              ></b-form-select>
+            </b-form-group>
+          </li>
+        </ul>
         </div>
         <div class="b-col">
-          <b-button type="button" class="btn-edit" variant="success">Enregistrer</b-button>
+          <b-button type="button" class="btn-edit" variant="success" v-if="this.editInfo">Enregistrer</b-button>
+          <b-button type="button" class="btn-edit mr-2" variant="success" v-if="!this.editInfo">Modifier</b-button>
           <b-button class="btn-delete" variant="danger" >Supprimer définitivement mon compte</b-button>
         </div>
       </div>
+
+             
  </div>
 
 </template>
