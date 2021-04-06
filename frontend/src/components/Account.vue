@@ -8,25 +8,26 @@
       </div>
     </div>
 
- <div class="container profil w-75 h-100 p-5" >
+    <div class="container profil w-75 h-100 p-5" >
       <div class="row">
         <div class="col" >
-            <h2>Ma photo profil</h2>
-            <b-avatar src="https://placekitten.com/300/300" size="5rem" class="mr-2"></b-avatar>
-              <b-button class="btn-delete" variant="danger" v-if="this.editInfo">Supprimer</b-button>
+          <h2>Ma photo profil</h2>
+          <b-avatar src="https://placekitten.com/300/300" size="5rem" class="mr-2"></b-avatar>
+          <b-button class="btn-delete" variant="danger" v-if="this.editInfo">Supprimer</b-button>
         </div>
       </div>
+
       <div class="row d-flex flex-row">
-        <div class="col-12 d-flex" >
-            <h2 class="mt-4 mr-2">Mes informations</h2>
+        <div class="col-12 d-flex">
+          <h2 class="mt-4 mr-2">Mes informations</h2>
         </div>
       </div>
       <div class="col">
         <ul class="pl-0" v-if="!this.editInfo">
-            <li>{{user.lastName}}</li>
-            <li>{{user.firstName}}</li>
-            <li> {{user.service}}</li>
-          </ul>
+          <li>{{user.lastName}}</li>
+          <li>{{user.firstName}}</li>
+          <li>{{user.service}}</li>
+        </ul>
 
         <ul class="p-0"v-if="this.editInfo">
           <li>
@@ -40,16 +41,15 @@
             </b-form-group>
           </li>
         </ul>
-        </div>
-        <div class="b-col">
-          <b-button type="button" class="btn-edit" variant="success" v-if="this.editInfo">Enregistrer</b-button>
-          <b-button type="button" class="btn-edit mr-2" variant="success" v-if="!this.editInfo">Modifier</b-button>
-          <b-button class="btn-delete" variant="danger" >Supprimer définitivement mon compte</b-button>
-        </div>
       </div>
 
-             
- </div>
+      <div class="b-col">
+        <b-button type="button" class="btn-edit" variant="success" v-if="this.editInfo">Enregistrer</b-button>
+        <b-button type="button" class="btn-edit mr-2" variant="success" v-if="!this.editInfo">Modifier</b-button>
+        <b-button class="btn-delete" variant="danger" >Supprimer définitivement mon compte</b-button>
+      </div>
+    </div>          
+</div>
 
 </template>
 
@@ -131,38 +131,4 @@ h2 {
 li {
   list-style: none;
 }
-
 </style>
-
-
- <!-- <div class="container profil">
-      <div class="row">
-        <div class="col-8">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <h2>Modifier ma photo profil</h2>
-              </div>
-
-              <div class="col-4">
-                <b-avatar src="https://placekitten.com/300/300" size="6rem"></b-avatar>
-              </div>
-              
-              <div class="col-6">
-                <div class="row gap-2"> 
-                  <div class="col-6">
-                    <b-button variant="success">Modifier</b-button>
-                  </div>
-                  <div class="col-6">
-                  <b-button variant="danger">Supprimer</b-button>
-                  </div>
-                </div>
-                
-              </div>
-                      
-            
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->

@@ -13,11 +13,11 @@ exports.getAllComments = (req, res, next) => { //req = request, res = response
 };
 
 exports.createComment = (req, res, next) => {
-    db.comments
-      .create(req.body)
-      .then(() => res.status(201).json({ message: "Post créé !" }))
-      .catch((error) => res.status(400).json({ error }));
-  };
+  db.comments
+    .create(req.body)
+    .then(() => res.status(201).json({ message: "Post créé !" }))
+    .catch((error) => res.status(400).json({ error }));
+};
 
 exports.editComment = (req, res, next) => {
   db.comments

@@ -1,9 +1,7 @@
 <template>
   <header>
     <div>
-      <nav
-        class="navbar navbar-expand-sm navbar-dark bg-secondary mb-3 py-0"
-      >
+      <nav class="navbar navbar-expand-sm navbar-dark bg-secondary mb-3 py-0">
         <div class="container">
           <router-link to="/">
             <img src="@/assets/logo.png" alt="groupomania logo" class="gm-logo" />
@@ -25,13 +23,9 @@
           <li class="nav-item">
             <router-link to="/account" class="nav-link"> Mon compte </router-link>
           </li>
-          
-            <li class="nav-item nav-link">
-            <a @click="logout" class="logout-btn">
-              Déconnexion 
-               </a>
-            </li>
-         
+          <li class="nav-item nav-link">
+            <a @click="logout" class="logout-btn">Déconnexion</a>
+          </li>
         </ul>
       </nav>
     </div>

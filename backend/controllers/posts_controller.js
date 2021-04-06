@@ -1,6 +1,7 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 const Post = require('../models/post');
+const { comments } = require("../models");
 
 exports.createOnePost = (req, res, next) => {
   console.log(req.body)
@@ -17,7 +18,8 @@ exports.createOnePost = (req, res, next) => {
   exports.getAllPosts = (req, res, next) => { //req = request, res = response 
     db.posts.findAll({
       include: [
-        {model: db.users, attributes: ['id','profilPicture', 'firstName', 'lastName']}
+        {model: db.users},
+        {model: db.comments, include: [db.users]},
       ],
       order: [['createdAt', 'DESC']]
     })//find va chercher quelque chose, va chercher toutes les posts de la fonction au dessus

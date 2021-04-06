@@ -1,71 +1,68 @@
 <template>
   <div class="container"> 
     <div class="row">
-    <h1 class="title_form"> Pas encore inscrit ? </h1>
-    <b-form class="form_register col-md-8" @submit="onSubmit" @reset="onReset" v-if="show">
-      
-      <b-form-group
-        id="input-group-1"
-        label="Votre adresse mail professionnelle"
-        label-for="input-1"
-        description="Nous ne partageons pas vos données."
-      >
-        <b-form-input class="input_form"
-          id="input-1"
-          v-model="form.email"
-          type="text"
-          placeholder="Votre email"
-          required
-          :class="error.email ? 'border-red' : ''"
-        ></b-form-input>
-        <p class="mb-0 error" v-if="error.email">
-          {{ error.email }}
-        </p>
-      </b-form-group>
+      <h1 class="title_form"> Pas encore inscrit ? </h1>
+      <b-form class="form_register col-md-8" @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form-group
+          id="input-group-1"
+          label="Votre adresse mail professionnelle"
+          label-for="input-1"
+          description="Nous ne partageons pas vos données."
+        >
+          <b-form-input class="input_form"
+            id="input-1"
+            v-model="form.email"
+            type="text"
+            placeholder="Votre email"
+            required
+            :class="error.email ? 'border-red' : ''"
+          ></b-form-input>
+          <p class="mb-0 error" v-if="error.email">
+            {{ error.email }}
+          </p>
+        </b-form-group>
 
-      <b-form-group id="input-group-2" label="Votre nom" label-for="input-2">
-        <b-form-input class="input_form"
-          id="input-2"
-          v-model="form.lastName"
-          placeholder="Entrez votre nom"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group id="input-group-2" label="Votre nom" label-for="input-2">
+          <b-form-input class="input_form"
+            id="input-2"
+            v-model="form.lastName"
+            placeholder="Entrez votre nom"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group id="input-group-3" label="Votre prénom" label-for="input-3">
-        <b-form-input class="input_form"
-          id="input-3"
-          v-model="form.firstName"
-          placeholder="Entrez votre prénom"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group id="input-group-3" label="Votre prénom" label-for="input-3">
+          <b-form-input class="input_form"
+            id="input-3"
+            v-model="form.firstName"
+            placeholder="Entrez votre prénom"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group id="input-group-4" label="Votre mot de passe" label-for="input-4">
-        <b-form-input class="input_form"
-          id="input-4"
-          v-model="form.password"
-          type="password"
-          placeholder="Entrez votre mot de passe"
-          required
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group id="input-group-4" label="Votre mot de passe" label-for="input-4">
+          <b-form-input class="input_form"
+            id="input-4"
+            v-model="form.password"
+            type="password"
+            placeholder="Entrez votre mot de passe"
+            required
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group id="input-group-5" label="Service" label-for="input-5">
-        <b-form-select class="input_form"
-          id="input-5"
-          v-model="form.service"
-          :options="service"
-          required
-        ></b-form-select>
-      </b-form-group>
+        <b-form-group id="input-group-5" label="Service" label-for="input-5">
+          <b-form-select class="input_form"
+            id="input-5"
+            v-model="form.service"
+            :options="service"
+            required
+          ></b-form-select>
+        </b-form-group>
 
-
-      <b-button type="submit" variant="primary">Envoyer</b-button>
-      <b-button type="reset" variant="danger">Annuler</b-button>
-    </b-form>
+        <b-button type="submit" variant="primary">Envoyer</b-button>
+        <b-button type="reset" variant="danger">Annuler</b-button>
+      </b-form>
     </div>
-    
   </div>
 </template>
 

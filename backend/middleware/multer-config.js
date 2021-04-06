@@ -1,10 +1,10 @@
 const multer = require('multer'); //importation de multer
 
 const MIME_TYPES = { //génère l'extension du fichier
-"image/jpg": "jpg",
-"image/jpeg": "jpg",
-"image/png": "png",
-"image/gif": "gif",
+  "image/jpg": "jpg",
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/gif": "gif",
 };
 
 const storage = multer.diskStorage({            //enregistret sur le disque
