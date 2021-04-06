@@ -64,9 +64,18 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+// POUR MODIFIER SES INFORMATIONS 
+exports.update = (req, res, next) => {
+  db.users.update({ service: req.body.service }, { where: {id: req.params.id} })
+  .then(rowsUpdated => {
+    res.status(200).json ({result:'ok'})
+  })
+  .catch(error => res.status(500).json({ error })); 
+};
+
 //POUR RECHERCHER LES INFOS USER 
 exports.getOneUser = (req, res, next) => {
-  db.users.findOne({ where: {id: req.params.id} }) //va rechercher l'adresse mail entrée 
+  db.users.findOne({ where: {id: req.params.id} }) 
     .then(user => {
       if (!user) { //! = négation
         return res.status(401).json({ error: 'Utilisateur non trouvé !' }); 

@@ -3,7 +3,8 @@
     <form @submit.prevent="submitComment">
       <div class="form-group">
         <h3 class="font-normal texte-grey-darkest text-sm mb-3">Écrivez votre commentaire</h3>
-        <textarea v-model="form.content" class="border rounded p-3 mb-8 w-100" ></textarea>
+        <p class="error-content mb-1"v-if="errors.content">{{errors.content}}</p>
+        <textarea v-model="form.content" v-bind:class="{'border-danger':errors.content}" class="border rounded p-3 mb-8 w-100" ></textarea>
       </div>
       <button type="submit" class="border rounded py-2">Envoyer mon commentaire</button>
     </form>
@@ -25,6 +26,9 @@ export default {
         'content': '',
         'postId': this.postId
       },
+      errors: {
+        content: null
+      },
       comments: {}, 
     }
   },
@@ -32,6 +36,10 @@ export default {
     submitComment(e) {
       e.preventDefault()
       this.form.userId = this.$parent.$parent.user.id
+      if(this.form.content.trim() == ''){ //fonction trim = supprime les espaces avant et après le contenu 
+        this.errors.content='Le contenu de votre commentaire ne peut être vide';
+        return false;
+      }
       axios.post('http://localhost:3000/api/comments', this.form, {
         headers: {
           Authorization: "Bearer " + localStorage.token,
@@ -43,11 +51,10 @@ export default {
           'postId': this.postId,
           'userId': this.$parent.$parent.user.id,
         };
+        this.errors.content=null;
       })
     },
   },
-  mounted: function () { 
-  } 
 } 
 </script>
 
@@ -55,5 +62,10 @@ export default {
   h3{
     font-size: 16px;
     margin: none;
+  }
+  .error-content {
+    color: crimson;
+    font-style: italic;
+    font-size: 14px;
   }
 </style>

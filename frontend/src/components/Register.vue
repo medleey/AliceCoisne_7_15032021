@@ -1,8 +1,9 @@
 <template>
   <div class="container"> 
     <div class="row">
-      <h1 class="title_form"> Pas encore inscrit ? </h1>
+      
       <b-form class="form_register col-md-8" @submit="onSubmit" @reset="onReset" v-if="show">
+      <h1 class="title_form"> Pas encore inscrit ? </h1>
         <b-form-group
           id="input-group-1"
           label="Votre adresse mail professionnelle"
@@ -97,7 +98,6 @@ import axios from 'axios';
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        console.log(this.form)
 
         axios
           .post("http://localhost:3000/api/users/register", this.form)

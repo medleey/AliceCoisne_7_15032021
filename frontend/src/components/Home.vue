@@ -8,7 +8,8 @@
       <div class="row">
         <b-form class="col bg-post mb-3" @submit="onSubmit" @reset="onReset" >
           <h2>Exprimez-vous !</h2>
-          <b-form-textarea id="textarea" v-model="form.content" placeholder="Écrivez votre statut" rows="3" max-rows="6">
+          <p class="error-content mb-1"v-if="errors.content">{{errors.content}}</p>
+          <b-form-textarea id="textarea" v-model="form.content" v-bind:class="{'border-danger':errors.content}" placeholder="Écrivez votre statut" rows="3" max-rows="6">
           </b-form-textarea>
           <!-- Ajouter une image -->
           <div id="preview" class="mt-3">
@@ -40,15 +41,17 @@ export default {
   ],
   data () {
     return {
-      image: null, 
-      text: '',
+      image: null,
       welcome: "Bienvenue sur le fil d'actualités ",
       form: {
           image: null,
           imageUrl: '',
-          text: ''
+          content: ''
         },
-      allPosts: []
+      allPosts: [],
+      errors: {
+        content: null
+      },
     }
   },
     methods: {
@@ -61,6 +64,10 @@ export default {
       onSubmit(event) {
         event.preventDefault()
         console.log(this.form)
+        if(this.form.content.trim() == ''){ //fonction trim = supprime les espaces avant et après le contenu 
+        this.errors.content='Le contenu de votre post ne peut être vide';
+        return false;
+        }
 
         let postData = new FormData();
         if (this.form.imageUrl != "") {
@@ -80,14 +87,14 @@ export default {
           this.form = {
             image: null,
             imageUrl: '',
-            text: ''
+            content: ''
           };
         })
       },
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.text = '',
+        this.content = '',
         this.image = null
         // Trick to reset/clear native browser form validation state
       },

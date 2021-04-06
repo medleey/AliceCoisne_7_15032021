@@ -13,7 +13,7 @@
         <div class="col" >
             <h2>Ma photo profil</h2>
             <b-avatar src="https://placekitten.com/300/300" size="5rem" class="mr-2"></b-avatar>
-              <b-button class="btn-delete" variant="danger" v-if="this.editInfo">Supprimer</b-button>
+              <b-button class="btn-delete" variant="danger" v-if="editInfo">Supprimer</b-button>
         </div>
       </div>
       <div class="row d-flex flex-row">
@@ -22,29 +22,50 @@
         </div>
       </div>
       <div class="col">
-        <ul class="pl-0" v-if="!this.editInfo">
+        <ul class="pl-0" v-if="!editInfo">
           <li>{{user.lastName}}</li>
           <li>{{user.firstName}}</li>
           <li> {{user.service}}</li>
         </ul>
-
-        <ul class="p-0"v-if="this.editInfo">
-          <li>
-            <b-form-group id="input-group-5" label="Service" label-for="input-5">
-              <b-form-select class="input_form"
-                id="input-5"
-                v-model="form.service"
-                :options="service"
-                required
-              ></b-form-select>
-            </b-form-group>
-          </li>
-        </ul>
-      </div>
-      <div class="b-col">
-        <b-button type="button" class="btn-edit" variant="success" v-if="this.editInfo">Enregistrer</b-button>
-        <b-button type="button" class="btn-edit mr-2" variant="success" v-if="!this.editInfo">Modifier</b-button>
-        <b-button class="btn-delete" variant="danger" >Supprimer définitivement mon compte</b-button>
+        <!--POUR RÉCUPÉRER MES INFOS MODIFIÉES-->
+        <form @submit.prevent="submitInfo">
+          <ul class="p-0"v-if="editInfo">
+            <li>
+              <b-form-group id="input-group-1" label="Service" label-for="input-1">
+                <b-form-select class="input_form"
+                  id="input-1"
+                  v-model="form.service"
+                  :options="services"
+                ></b-form-select>
+              </b-form-group>
+            </li>
+            <li>
+              <b-form-group id="input-group-2" label="Votre ancien mot de passe" label-for="input-2">
+                <b-form-input class="input_form"
+                  id="input-2"
+                  v-model="form.password"
+                  type="password"
+                  placeholder="Entrez votre ancien mot de passe"
+                ></b-form-input>
+              </b-form-group>
+            </li>
+            <li>
+              <b-form-group id="input-group-3" label="Votre nouveau mot de passe" label-for="input-3">
+                <b-form-input class="input_form"
+                  id="input-3"
+                  v-model="form.password"
+                  type="password"
+                  placeholder="Entrez votre nouveau mot de passe"
+                ></b-form-input>
+              </b-form-group>
+            </li>
+          </ul>
+          <div class="b-col">
+            <b-button type="submit" class="btn-edit" variant="success" v-if="editInfo">Enregistrer</b-button>
+          </div>
+        </form>
+        <b-button type="button" class="btn-edit mr-2" variant="success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
+        <b-button class="btn-delete" variant="danger">Supprimer définitivement mon compte</b-button>
       </div>
     </div>
   </div>
@@ -58,11 +79,12 @@ export default {
     "user"
   ],
   data () {
-    return {   
+    return { 
+      editInfo: false,
+
       form: {
-        lastName: '',
-        name: '',
-        password:'',
+        currentPassword: '',
+        newPassword:'',
         service: null,
       },
       services: [{ 
@@ -75,7 +97,23 @@ export default {
         'Design',
         'Bureau des études'
         ],
-      show: true
+      show: true,
+    }
+  },
+  methods: {
+    submitInfo(e) {
+      e.preventDefault()
+      axios.put('http://localhost:3000/api/users/'+ localStorage.userId, this.form, {
+        headers: {
+          Authorization: "Bearer " + localStorage.token,
+        },
+        }).then((res) => {
+            this.$emit('refreshUserData');
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        
     }
   },
   mounted: function () { //permet de refresh les users data, API > BDD > UserId 
