@@ -41,7 +41,10 @@ db.comments = require("./comment.js")(sequelize, Sequelize);
 db.posts.belongsTo(db.users);
 db.users.hasMany(db.posts);
 
-db.comments.belongsTo(db.posts, {foreignKey:"userId"});
-db.posts.hasMany(db.comments, {foreignKey:"userId"});
+db.comments.belongsTo(db.posts);
+db.posts.hasMany(db.comments);
+
+db.users.hasMany(db.comments, {foreignKey: "userId"});
+db.comments.belongsTo(db.users, {foreignKey: "userId"});
 
 module.exports = db;

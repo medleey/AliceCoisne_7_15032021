@@ -10,16 +10,15 @@
           <h2>Exprimez-vous !</h2>
           <b-form-textarea id="textarea" v-model="form.content" placeholder="Écrivez votre statut" rows="3" max-rows="6">
           </b-form-textarea>
-  
-      <!-- Ajouter une image -->
-      <div id="preview" class="mt-3">
-        <img v-if="form.imageUrl" :src="form.imageUrl" />
+          <!-- Ajouter une image -->
+          <div id="preview" class="mt-3">
+              <img v-if="form.imageUrl" :src="form.imageUrl" />
+          </div>
+          <b-form-file @change="onImageChange" accept="image/jpeg,image/gif,image/png,image/x-eps" v-model="form.image" class="mt-3" plain></b-form-file>
+          <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
+          <b-button class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
+        </b-form>
       </div>
-        <b-form-file @change="onImageChange"  v-model="form.image" class="mt-3" plain></b-form-file>
-        <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
-        <b-button class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
-      </b-form>
-    </div>
     </div>
     
     <!--mettre Post.vue-->
@@ -63,7 +62,7 @@ export default {
         event.preventDefault()
         console.log(this.form)
 
-      let postData = new FormData();
+        let postData = new FormData();
         if (this.form.imageUrl != "") {
             postData.append("image", this.form.image);
             postData.append("imageUrl", this.form.image.name);
@@ -71,10 +70,9 @@ export default {
         postData.append("content", this.form.content ? this.form.content : ''); //condition ternaire, si il ya qqch renvoie, sinon chaine vide
         postData.append("userId", this.user.id);
 
-        axios
-        .post("http://localhost:3000/api/posts", postData, {
+        axios.post("http://localhost:3000/api/posts", postData, {
           headers: {
-          Authorization: "Bearer " + localStorage.token,
+            Authorization: "Bearer " + localStorage.token,
           }
         })
         .then((response) => {
@@ -93,14 +91,13 @@ export default {
         this.image = null
         // Trick to reset/clear native browser form validation state
       },
-
       refreshPosts() {
         console.log('test');
         axios.get("http://localhost:3000/api/posts", {
-          headers: {
-            Authorization: "Bearer " + localStorage.token,
-          }
-        })
+            headers: {
+              Authorization: "Bearer " + localStorage.token,
+            }
+          })
           .then((response) => {
             this.allPosts = response.data
           })

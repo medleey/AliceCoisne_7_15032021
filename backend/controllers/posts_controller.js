@@ -1,7 +1,6 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 const Post = require('../models/post');
-const { comments } = require("../models");
 
 exports.createOnePost = (req, res, next) => {
   console.log(req.body)
