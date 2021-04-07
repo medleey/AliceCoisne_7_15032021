@@ -5,7 +5,7 @@
               <b-list-group-item class='name-user pl-0'>
                   <b-avatar href="#foo" variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
                   {{this.post.User.firstName}} {{this.post.User.lastName}} 
-                  <button class="delete-btn" @click="deleteOnePost"><i class="fas fa-times"></i></button>
+                  <button class="delete-btn" @click="deleteOnePost" v-if="canDelete(this.post)"><i class="fas fa-times"></i></button>
               </b-list-group-item>
             
           <b-img :src="this.post.image" fluid alt="Responsive image" class="img-post"></b-img>
@@ -13,8 +13,8 @@
       </div>
       <p class="date">Publié {{this.date}} </p>
       <p>{{this.post.content}}</p>
-      <Comment v-for="singleComment in post.comments" :key="singleComment.id" :comment="singleComment"/>
-      <NewComment @newComment="refreshPosts" v-bind:postId="post.id"/>
+      <Comment v-for="singleComment in post.comments" :key="singleComment.id" :comment="singleComment" v-bind:user="user"/>
+      <NewComment v-bind:postId="post.id"/>
   </div>
 </template>
 
@@ -27,8 +27,7 @@ import axios from 'axios';
 export default {
   data() {
       return{
-          date:'',
-          allComments: [],
+          date:''
       }   
   },
   components: { 
@@ -36,24 +35,26 @@ export default {
       Comment
       },
   props: [
-      'post'
+      'post',
+      'user'
   ],
   methods:{
     deleteOnePost() {
-      axios.delete('http://localhost:3000/api/posts/'+ localStorage.userId, this.post, {
+      axios.delete('http://localhost:3000/api/posts/'+ this.post.id, {
         headers: {
-          Authorization: "Bearer " + localStorage.token,
+          Authorization: "Bearer " + localStorage.token
         },
         }).then((res) => {
-            this.$emit('refreshUserData');
+            this.$emit('deletePost', this.post.id); //permet de déclencher l'éven deletePost
         })
         .catch(error => {
-          console.log(error);
+
         });
         
     },
-    refreshPosts() {
-      this.$emit('refreshallPosts');
+    
+    canDelete(post) {
+        return post.userId+"" === localStorage.userId || this.user.isAdmin; // permet de convertir en string 
     }
   },
 

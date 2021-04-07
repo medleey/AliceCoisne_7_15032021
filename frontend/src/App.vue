@@ -3,7 +3,7 @@
     
     <Header @refreshUserData = "refreshUserData" v-bind:user="user"/> <!-- 1er user = user du header et le 2ème= celui du data en dessous-->
     
-    <router-view @refreshUserData = "refreshUserData" v-bind:user="user"/>  <!--évenement qui est référé dans data-->
+    <router-view @refreshUserData = "refreshUserData" v-bind:user="user"/> 
     <!--
     router-view = soit :
     <Home @refreshUserData = "refreshUserData" v-bind:user="user" /> 

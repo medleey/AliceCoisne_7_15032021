@@ -113,7 +113,7 @@ export default {
             this.$emit('refreshUserData');
         })
         .catch(error => {
-          console.log(error);
+          
         });
         
     },

@@ -52,7 +52,6 @@ import axios from 'axios';
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        console.log(this.form)
 
       axios
           .post("http://localhost:3000/api/users/login", this.form)

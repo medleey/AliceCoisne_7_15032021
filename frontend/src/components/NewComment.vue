@@ -44,8 +44,8 @@ export default {
         headers: {
           Authorization: "Bearer " + localStorage.token,
         },
-      }).then((result) => {
-        this.$emit('newComment'); 
+      }).then((response) => {
+        this.$parent.post.comments.push(response.data);
         this.form = {
           'content': '',
           'postId': this.postId,

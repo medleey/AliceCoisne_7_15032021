@@ -23,7 +23,10 @@
     </div>
     
     <!--mettre Post.vue-->
-    <Post @refreshallPosts="refreshPosts" v-for="singlePost in allPosts" :key="singlePost.id" :post="singlePost" /> <!--permet de faire la boucle pour afficher tous les posts-->
+    <Post  
+    v-for="singlePost in allPosts" 
+    :key="singlePost.id" :post="singlePost" 
+    v-bind:user="user" @deletePost="deletePost"/> <!--permet de faire la boucle pour afficher tous les posts-->
   </div>
 </template>
 
@@ -63,7 +66,6 @@ export default {
       },
       onSubmit(event) {
         event.preventDefault()
-        console.log(this.form)
         if(this.form.content.trim() == ''){ //fonction trim = supprime les espaces avant et après le contenu 
         this.errors.content='Le contenu de votre post ne peut être vide';
         return false;
@@ -83,7 +85,8 @@ export default {
           }
         })
         .then((response) => {
-          this.refreshPosts();
+          response.data.comments = [];
+          this.allPosts.unshift(response.data); 
           this.form = {
             image: null,
             imageUrl: '',
@@ -99,7 +102,6 @@ export default {
         // Trick to reset/clear native browser form validation state
       },
       refreshPosts() {
-        console.log('test');
         axios.get("http://localhost:3000/api/posts", {
             headers: {
               Authorization: "Bearer " + localStorage.token,
@@ -109,6 +111,9 @@ export default {
             this.allPosts = response.data
           })
       },
+      deletePost(postId) {
+        this.allPosts = this.allPosts.filter(post => post.id !== postId);
+      }
     },
     mounted: function () { 
       this.refreshPosts();
