@@ -86,3 +86,22 @@ exports.getOneUser = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+
+//POUR SUPPRIMER SON COMPTE
+exports.deleteUser = (req, res, next) => {
+  db.users
+    .findOne({
+      where: {
+        id: req.params.id,
+      },
+    })
+    .then((user) => {
+      user.destroy();
+      res.status(200).json(user.id + " has been deleted");
+    })
+    .catch((error) => {
+      res.status(404).json({
+        error: error,
+      });
+    });
+};
