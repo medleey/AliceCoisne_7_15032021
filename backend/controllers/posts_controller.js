@@ -31,11 +31,7 @@ exports.createOnePost = (req, res, next) => {
     const postObject = JSON.parse(req.body.post);
     const post = new Post({ //converti le post en model, post qui est dans la bdd
       ...postObject,//spread ... utilisé pour faire la copie de tous les éléments de req.body
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`, //
-      likes: 0,
-      dislikes: 0,
-      usersLiked: [],
-      usersDisliked: [],
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     })
     post.save() // renvoie une Promise
     .then(() => res.status(201).json({ message: 'Post enregistré!' })) //réponse 201 de réussite

@@ -45,7 +45,7 @@ export default {
           Authorization: "Bearer " + localStorage.token,
         },
       }).then((result) => {
-        this.$emit('newComment');
+        this.$emit('newComment'); 
         this.form = {
           'content': '',
           'postId': this.postId,

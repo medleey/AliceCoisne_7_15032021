@@ -4,8 +4,10 @@
           <div class="col">
               <b-list-group-item class='name-user pl-0'>
                   <b-avatar href="#foo" variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
-                  {{this.post.User.firstName}} {{this.post.User.lastName}}
-              </b-list-group-item>  
+                  {{this.post.User.firstName}} {{this.post.User.lastName}} 
+                  <button class="delete-btn" @click="deleteOnePost"><i class="fas fa-times"></i></button>
+              </b-list-group-item>
+            
           <b-img :src="this.post.image" fluid alt="Responsive image" class="img-post"></b-img>
           </div>
       </div>
@@ -37,6 +39,19 @@ export default {
       'post'
   ],
   methods:{
+    deleteOnePost() {
+      axios.delete('http://localhost:3000/api/posts/'+ localStorage.userId, this.post, {
+        headers: {
+          Authorization: "Bearer " + localStorage.token,
+        },
+        }).then((res) => {
+            this.$emit('refreshUserData');
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        
+    },
     refreshPosts() {
       this.$emit('refreshallPosts');
     }
@@ -69,5 +84,12 @@ export default {
         margin-top: 10px;
         font-size: 14px;
         font-style: italic;
+    }
+    .delete-btn {
+        width: 30px;
+        color: red;
+        border-width: unset;
+        background: unset;
+        border: unset
     }
 </style>
