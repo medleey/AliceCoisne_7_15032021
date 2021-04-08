@@ -5,65 +5,96 @@ const fs = require('fs')
 
 exports.createOnePost = (req, res, next) => {
   console.log(req.body)
-    if (req.body.imageUrl) {
-      req.body.image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
-    }
-    db.posts
-      .create(req.body)
-      .then((response) => {
-        db.posts.findOne({
-          include: [{model: db.users}],
-          where : {
+  if (req.body.imageUrl) {
+    req.body.image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+  }
+  db.posts
+    .create(req.body)
+    .then((response) => {
+      db.posts.findOne({
+          include: [{
+            model: db.users
+          }],
+          where: {
             id: response.dataValues.id //permet de n'avoir qu'un seul post 
           }
         }).then(post => res.status(200).json(post))
-        .catch(error => res.status(500).json({error}));
-      })
-      .catch((error) => res.status(500).json({error}));
-  };
+        .catch(error => res.status(500).json({
+          error
+        }));
+    })
+    .catch((error) => res.status(500).json({
+      error
+    }));
+};
 
 //POUR RECHERCHER TOUS LES POSTS
-  exports.getAllPosts = (req, res, next) => { //req = request, res = response 
-    db.posts.findAll({
-      include: [
-        {model: db.users},
-        {model: db.comments, include: [db.users]},
+exports.getAllPosts = (req, res, next) => { //req = request, res = response 
+  db.posts.findAll({
+      include: [{
+          model: db.users
+        },
+        {
+          model: db.comments,
+          include: [db.users]
+        },
       ],
       order: [
         ['createdAt', 'DESC'],
-        [db.comments,'createdAt', 'ASC']
-    ]
+        [db.comments, 'createdAt', 'ASC']
+      ]
     })
-      .then(posts => res.status(200).json(posts))
-      .catch(error => res.status(500).json({ error }));
-  };
+    .then(posts => res.status(200).json(posts))
+    .catch(error => res.status(500).json({
+      error
+    }));
+};
 
-  //POUR CHERCHER UN POST 
-  exports.getOnePost = (req, res, next) => {
-    db.posts.findOne({ id: req.params.id })
-      .then(post => res.status(200).json(post)) //ok
-      .catch(error => res.status(404).json({ error })); //objet non trouvé 
-  }
+//POUR CHERCHER UN POST 
+exports.getOnePost = (req, res, next) => {
+  db.posts.findOne({
+      id: req.params.id
+    })
+    .then(post => res.status(200).json(post)) //ok
+    .catch(error => res.status(404).json({
+      error
+    })); //objet non trouvé 
+}
 
 //POUR SUPPRIMER UNE POST 
-exports.deleteOnePost = (req, res, next) => { //permet de supprimer un post
-  db.posts.findOne({ id: req.params.id }) //va rechercher le post en question
-    .then(post => {
-      const filename = post.image.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        db.posts.destroy({
-          where: {
-            id: req.params.id
-          }
-        }) //supprime le post avec l'id recherché 
-          .then(() => {
-            db.comments.destroy({
-              where: {
-                id: post.comments.map(x => x.id)
-              }
-            }).then(() => res.status(200).json({ message: 'Post supprimé !' }));
-          }) //ok 
-          .catch(error => res.status(500).json({ error }));
-      });
+exports.deleteOnePost = (req, res, next) => {
+  const postId = req.params.id;
+
+//TROUVER LE POST A SUPPRIMER ET FAIRE UNLINK IMG   
+  db.posts.findOne({
+    where: {
+      id: postId
+    }
+  }).then((post)=> {
+    const filename = post.image.split('/images/');
+    if (filename.length > 1) {
+      fs.unlink(`images/${filename[1]}`, () => {});
+    }
+  })
+  
+// SUPPRESSION DU POST ET DU COMMENTAIRE
+  db.posts.destroy({
+      where: {
+        id: postId
+      }
     })
+    .then(() => {
+      db.comments.destroy({
+          where: {
+            postId: postId
+          }
+        }).then(() => res.status(200).json({
+          message: 'Post + commentaires supprimés !'
+        })).catch(error => res.status(500).json({
+          message: 'post supprimé mais commentaire non supprimé'
+        }))
+    })
+    .catch(error => res.status(500).json({
+      message: 'post et commentaires non supprimés'
+    }));
 };
