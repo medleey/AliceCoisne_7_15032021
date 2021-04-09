@@ -161,6 +161,11 @@ h2 {
   color: #E05600;
   border-color: #E05600;
 }
+.send-post:hover {
+  color: white;
+  background-color:#E05600;
+  border-color: #E05600;
+}
 
 #preview>img {
   width: 200px;

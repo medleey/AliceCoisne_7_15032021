@@ -13,7 +13,7 @@
         <div class="col" >
             <h2>Ma photo profil</h2>
             <b-avatar v-if="!editInfo" :src="user.profilPicture" size="5rem" class="mr-2"></b-avatar>
-            <b-form-group v-if="editInfo" id="input-group-3" label="Votre nouveau mot de passe" label-for="input-3">
+            <b-form-group v-if="editInfo" id="input-group-3" label="Votre nouvelle photo de profil" label-for="input-3">
               <!-- Ajouter une image -->
               <div id="preview" class="mt-3">
                   <img v-if="form.imageUrl" :src="form.imageUrl" />
@@ -70,11 +70,11 @@
             </li>
           </ul>
           <div class="b-col">
-            <b-button type="submit" class="btn-edit" variant="success" v-if="editInfo">Enregistrer</b-button>
+            <b-button type="submit" class="mb-2" variant="outline-success" v-if="editInfo">Enregistrer</b-button>
           </div>
         </form>
-        <b-button type="button" class="btn-edit mr-2" variant="success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
-        <b-button class="btn-delete" variant="danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
+        <b-button type="button" class="mr-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
+        <b-button class="btn-delete" variant="outline-danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .title {
   display: flex;
   justify-content: center;
@@ -205,22 +205,14 @@ h2 {
   border-radius: 10px;
   box-shadow: lightgray 2px 5px 10px;
 }
-.btn-edit {
-  background-color: transparent;
-  border-color: green;
-  color: green;
-  font-size: 14px;
-}
-.btn-delete {
-  background-color: transparent;
-  border-color: crimson;
-  color: crimson;
-  font-size: 14px;
-}
 li {
   list-style: none;
 }
-
+#preview>img {
+  width: 200px;
+  height: 200px;
+  object-fit:contain;
+}
 </style>
 
 
