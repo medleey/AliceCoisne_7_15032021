@@ -45,6 +45,9 @@ export default {
         })
       } else {
         this.user = undefined;
+        if(!this.$route.name.toLowerCase().includes("login")){ //donne l'url de la page où on est actuellement, en minuscule, string qui inclu 'login'
+        this.$router.push({name: 'Login'}); 
+        }
       }
     }
   },
