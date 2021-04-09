@@ -2,11 +2,11 @@ const bcrypt = require('bcrypt'); //données de cryptage et hachage
 const jwt = require('jsonwebtoken');
 const db = require('../models');
 let validator = require("email-validator");
+const { posts, comments } = require('../models');
 //const User = require('../models/user_model');
 
 //POUR S'INSCRIRE
 exports.register = (req, res, next) => {
-  
   bcrypt.hash(req.body.password, 10) // plus il y a de boucles, plus c'est dur de casser de code = salage du mdp
     .then(hash => {
       //vérification email via validator.validate (package - npm install)
@@ -65,12 +65,22 @@ exports.login = (req, res, next) => {
 };
 
 // POUR MODIFIER SES INFORMATIONS 
+const imageUrl = user.profilPicture
 exports.update = (req, res, next) => {
-  db.users.update({ service: req.body.service }, { where: {id: req.params.id} })
-  .then(rowsUpdated => {
-    res.status(200).json ({result:'ok'})
-  })
-  .catch(error => res.status(500).json({ error })); 
+  if (req.body.imageUrl) {
+    req.body.imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+  }
+  db.users.update({ 
+    service: req.body.service, 
+    imageUrl: req.body.imageUrl 
+  }, 
+    { where: { 
+      id: req.params.id 
+      } 
+    }
+  )
+  .then(() => res.status(200).json({ message: "db.users et infos des posts modifiées !" }))
+  .catch((error) => res.status(400).json({ error }));
 };
 
 //POUR RECHERCHER LES INFOS USER 
@@ -88,15 +98,18 @@ exports.getOneUser = (req, res, next) => {
 };
 
 //POUR SUPPRIMER SON COMPTE
+const userId = req.params.id;
 exports.deleteUser = (req, res, next) => {
   db.users
     .findOne({
       where: {
-        id: req.params.id,
+        id: userId,
       },
     })
     .then((user) => {
       user.destroy();
+      user.posts.destroy();
+      user.comments.destroy();
       res.status(200).json(user.id + " has been deleted");
     })
     .catch((error) => {

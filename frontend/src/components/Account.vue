@@ -125,10 +125,10 @@ export default {
       if (confirm) {
         axios
           .delete(
-            "http://localhost:3000/api/users/" + storage.getStorage("userId"),
+            "http://localhost:3000/api/users/" + localStorage.userId,
             {
               headers: {
-                Authorization: "Bearer " + storage.getStorage("token"),
+                Authorization: "Bearer " + localStorage.token,
               },
             }
           )

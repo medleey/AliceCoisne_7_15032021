@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: "User",
         key: "id",
-      }
+      },
     },
     image: DataTypes.STRING,
     content: DataTypes.TEXT

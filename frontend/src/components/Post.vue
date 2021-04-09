@@ -23,7 +23,7 @@ import NewComment from './NewComment';
 import Comment from './Comment';
 import moment from 'moment';
 import axios from 'axios';
-
+         
 export default {
   data() {
       return{
