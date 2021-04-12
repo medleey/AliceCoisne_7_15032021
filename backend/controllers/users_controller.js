@@ -42,7 +42,7 @@ exports.register = (req, res, next) => {
 
 //POUR SE CONNECTER
 exports.login = (req, res, next) => {
-  db.users.findOne({ where: {email: req.body.email} }) //va rechercher l'adresse mail entrée 
+  db.users.findOne({ where: {email: req.body.email} }) //cherche l'adresse mail entrée 
     .then(user => {
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé !' }); 
@@ -56,8 +56,8 @@ exports.login = (req, res, next) => {
             userId: user.id,
             token: jwt.sign( //encode le nouveau token
               { userId: user.id },
-              'RANDOM_TOKEN_SECRET', //chaine de caractères secrets 
-              { expiresIn: '24h' } //le token expire au bout de 24h
+              'RANDOM_TOKEN_SECRET',
+              { expiresIn: '24h' }
             )
           });
         })

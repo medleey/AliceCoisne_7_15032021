@@ -47,8 +47,6 @@ export default {
     }
   }
 }
-
-
 </script>
 
 <style scoped>
@@ -62,7 +60,7 @@ export default {
     width: 150px;
   }
   .name-user {
-    color: white ;
+    color: white;
   }
   .gm-banner {
       background-color: grey;
@@ -70,6 +68,6 @@ export default {
   .logout-btn {
     cursor: pointer;
     list-style: none;
-    color:white ;
+    color: white;
   }
 </style>

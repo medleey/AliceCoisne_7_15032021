@@ -55,8 +55,8 @@
           ></b-form-select>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Envoyer</b-button>
-        <b-button type="reset" variant="danger">Annuler</b-button>
+        <b-button data-message="envoyez votre connexion" type="submit" variant="primary">Envoyer</b-button>
+        <b-button data-message="annulez votre connexion" type="reset" variant="danger">Annuler</b-button>
       </b-form>
     </div>
   </div>
@@ -64,62 +64,63 @@
 
 <script>
 import axios from 'axios';
-  export default {
-      name: 'Register',
-    data() {
-      return {
-        form: {
-          email: '',
-          lastName: '',
-          firstName: '',
-          service: null
-        },
-        error: {
-          email: false
-        },
-        service: [{ 
-          text: 'Selectionnez votre service', value: null }, 
-          'Ressources Humaines',
-          'Commerce',
-          'Comptabilité',
-          'Marketing',
-          'Informatique',
-          'Design',
-          'Bureau des études'
-          ],
-        show: true
-      }
-    },
-    methods: {
-      onSubmit(event) {
-        event.preventDefault()
 
-        axios
-          .post("http://localhost:3000/api/users/register", this.form)
-          .then((response) => {
-            //SUCCES 
-            this.$router.push({name: 'Login', 
-              params:{validRegister: true, 
-              emailUser: this.form.email} //permet de renvoyer un msg pour l'inscription
-            }); 
-        }).catch((error) => {
-          this.error = error.response.data;
-        });
+export default {
+  name: 'Register',
+  data() {
+    return {
+      form: {
+        email: '',
+        lastName: '',
+        firstName: '',
+        service: null
       },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.service = null
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }
+      error: {
+        email: false
+      },
+      service: [{ 
+        text: 'Selectionnez votre service', value: null }, 
+        'Ressources Humaines',
+        'Commerce',
+        'Comptabilité',
+        'Marketing',
+        'Informatique',
+        'Design',
+        'Bureau des études'
+        ],
+      show: true
+    }
+  },
+  methods: {
+    onSubmit(event) {
+      event.preventDefault()
+
+      axios
+        .post("http://localhost:3000/api/users/register", this.form)
+        .then((response) => {
+          //SUCCES 
+          this.$router.push({name: 'Login', 
+            params:{validRegister: true, 
+            emailUser: this.form.email} //renvoie un msg pour l'inscription
+          }); 
+      }).catch((error) => {
+        this.error = error.response.data;
+      });
     },
-  }
+    onReset(event) {
+      event.preventDefault()
+      // Reset our form values
+      this.form.email = ''
+      this.form.name = ''
+      this.form.service = null
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    }
+  },
+}
 </script>
 
 <style scoped>

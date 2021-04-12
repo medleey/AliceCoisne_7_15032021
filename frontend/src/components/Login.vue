@@ -29,8 +29,8 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="primary">Envoyer</b-button>
-          <b-button type="reset" variant="danger">Annuler</b-button>
+          <b-button data-message="envoyez votre connexion" type="submit" variant="primary">Envoyer</b-button>
+          <b-button data-message="annulez votre connexion" type="reset" variant="danger">Annuler</b-button>
         </b-form>
   </div>
   </div>    
@@ -38,46 +38,48 @@
 
 <script>
 import axios from 'axios';
-  export default {
-      name: 'Login',
-      data() {
-      return {
-        form: {
-          email: this.$route.params.emailUser, //permet de récupérer l'email du nouvel utilisateur à partir de la page 'register'
-          password: '',
-        },
-        show: true
-      }
-    },
-    methods: {
-      onSubmit(event) {
-        event.preventDefault()
 
-      axios
-          .post("http://localhost:3000/api/users/login", this.form)
-          .then((response) => {
-            localStorage.token = response.data.token; 
-            localStorage.userId = response.data.userId;
-            this.$router.replace({
-              name: 'Home'
-            });
-        }).catch((error) => {
-          this.error = error.response.data
-        })
+export default {
+    name: 'Login',
+    data() {
+    return {
+      form: {
+        email: this.$route.params.emailUser, //permet de récupérer l'email du nouvel utilisateur à partir de la page 'register'
+        password: '',
       },
+      show: true
+    }
+  },
+  methods: {
+    onSubmit(event) {
+      event.preventDefault()
 
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-        this.show = true
-        })
-      }
-    }}
+    axios
+        .post("http://localhost:3000/api/users/login", this.form)
+        .then((response) => {
+          localStorage.token = response.data.token; 
+          localStorage.userId = response.data.userId;
+          this.$router.replace({
+            name: 'Home'
+          });
+      }).catch((error) => {
+        this.error = error.response.data
+      })
+    },
+
+    onReset(event) {
+      event.preventDefault()
+      // Reset our form values
+      this.form.email = ''
+      this.form.name = ''
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+      this.show = true
+      })
+    }
+  }
+}
 </script>
 
 <style>

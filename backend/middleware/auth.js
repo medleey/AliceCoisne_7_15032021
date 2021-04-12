@@ -6,9 +6,9 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); //décode le token, verify (le token) + clé secrete pour la créa du token
     const userId = decodedToken.userId; //récurérer le token du decoded token
     if (req.body.userId && req.body.userId !== userId) { //si userId ne correspond pas au token
-      throw 'UserId non valable'; //renvoi l'erreur 
+      throw 'UserId non valable';  
     } else {
-      next(); //si tout va bien, passer la requete au prochain middleware
+      next();
     }
   } catch {
     res.status(401).json({

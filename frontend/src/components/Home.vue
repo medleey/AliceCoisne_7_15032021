@@ -17,7 +17,7 @@
           </div>
           <b-form-file @change="onImageChange" accept="image/jpeg,image/gif,image/png,image/x-eps" v-model="form.image" class="mt-3" plain></b-form-file>
           <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
-          <b-button class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
+          <b-button data-message="Publier votre post"class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
         </b-form>
       </div>
     </div>
@@ -32,8 +32,6 @@
 
 <script>
 import Post from './Post.vue';
-import NewComment from './NewComment.vue'; //dois je vraiment les mettre la ? - Alexis 
-import Comment from './Comment.vue';
 import axios from "axios";
 
 export default {
@@ -57,68 +55,68 @@ export default {
       },
     }
   },
-    methods: {
-      onImageChange(e) { //permet de faire le preview de l'image téléchargée
-        if (e.target.files[0].type.includes("image")) {
-          this.form.image = e.target.files[0];
-          this.form.imageUrl = URL.createObjectURL(this.form.image);
-        }
-      },
-      onSubmit(event) {
-        event.preventDefault()
-        if(this.form.content.trim() == ''){ //fonction trim = supprime les espaces avant et après le contenu 
-        this.errors.content='Le contenu de votre post ne peut être vide';
-        return false;
-        }
+  methods: {
+    onImageChange(e) { //permet de faire le preview de l'image téléchargée
+      if (e.target.files[0].type.includes("image")) {
+        this.form.image = e.target.files[0];
+        this.form.imageUrl = URL.createObjectURL(this.form.image);
+      }
+    },
+    onSubmit(event) {
+      event.preventDefault()
+      if(this.form.content.trim() === ''){ //fonction trim = supprime les espaces avant et après le contenu 
+      this.errors.content='Le contenu de votre post ne peut être vide';
+      return false;
+      }
 
-        let postData = new FormData();
-        if (this.form.imageUrl != "") {
-            postData.append("image", this.form.image);
-            postData.append("imageUrl", this.form.image.name);
-        }
-        postData.append("content", this.form.content ? this.form.content : ''); //condition ternaire, si il ya qqch renvoie, sinon chaine vide
-        postData.append("userId", this.user.id);
+      let postData = new FormData();
+      if (this.form.imageUrl !== "") {
+          postData.append("image", this.form.image);
+          postData.append("imageUrl", this.form.image.name);
+      }
+      postData.append("content", this.form.content ? this.form.content : ''); //condition ternaire, si il ya qqch renvoie, sinon chaine vide
+      postData.append("userId", this.user.id);
 
-        axios.post("http://localhost:3000/api/posts", postData, {
+      axios.post("http://localhost:3000/api/posts", postData, {
+        headers: {
+          Authorization: "Bearer " + localStorage.token,
+        }
+      })
+      .then((response) => {
+        response.data.comments = [];
+        this.allPosts.unshift(response.data); 
+        this.form = {
+          image: null,
+          imageUrl: '',
+          content: ''
+        };
+      })
+    },
+    onReset(event) {
+      event.preventDefault()
+      // Reset our form values
+      this.content = ''
+      this.image = null
+      // Trick to reset/clear native browser form validation state
+    },
+    refreshPosts() {
+      axios.get("http://localhost:3000/api/posts", {
           headers: {
             Authorization: "Bearer " + localStorage.token,
           }
         })
         .then((response) => {
-          response.data.comments = [];
-          this.allPosts.unshift(response.data); 
-          this.form = {
-            image: null,
-            imageUrl: '',
-            content: ''
-          };
+          this.allPosts = response.data
         })
-      },
-      onReset(event) {
-        event.preventDefault()
-        // Reset our form values
-        this.content = '',
-        this.image = null
-        // Trick to reset/clear native browser form validation state
-      },
-      refreshPosts() {
-        axios.get("http://localhost:3000/api/posts", {
-            headers: {
-              Authorization: "Bearer " + localStorage.token,
-            }
-          })
-          .then((response) => {
-            this.allPosts = response.data
-          })
-      },
-      deletePost(postId) {
-        this.allPosts = this.allPosts.filter(post => post.id !== postId);
-      }
     },
-    mounted: function () { 
-      this.refreshPosts();
-      this.$emit('refreshUserData');
-    } 
+    deletePost(postId) {
+      this.allPosts = this.allPosts.filter(post => post.id !== postId);
+    }
+  },
+  mounted: function () { 
+    this.$emit('refreshUserData');
+    this.refreshPosts();
+  } 
 }
 </script>
 

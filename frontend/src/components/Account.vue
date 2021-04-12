@@ -16,7 +16,7 @@
             <b-form-group v-if="editInfo" id="input-group-3" label="Votre nouvelle photo de profil" label-for="input-3">
               <!-- Ajouter une image -->
               <div id="preview" class="mt-3">
-                  <img v-if="form.imageUrl" :src="form.imageUrl" />
+                  <img v-if="form.imageUrl" :src="form.imageUrl" alt="prévisualisation de l'image de profil" />
               </div>
               <b-form-file @change="onImageChange" accept="image/jpeg,image/gif,image/png,image/x-eps" v-model="form.image" class="mt-3" plain></b-form-file>
               <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
@@ -48,11 +48,11 @@
             </li>
           </ul>
           <div class="b-col">
-            <b-button type="submit" class="mb-2" variant="outline-success" v-if="editInfo">Enregistrer</b-button>
+            <b-button data-message="enregistrez vos modifications de compte" type="submit" class="mb-2" variant="outline-success" v-if="editInfo">Enregistrer</b-button>
           </div>
         </form>
-        <b-button type="button" class="mr-2 mb-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
-        <b-button class="btn-delete" variant="outline-danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
+        <b-button data-message="modifiez votre compte" type="button" class="mr-2 mb-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
+        <b-button data-message="supprimez votre compte définitivement" class="btn-delete" variant="outline-danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
       </div>
     </div>
   </div>

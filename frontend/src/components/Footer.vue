@@ -10,18 +10,17 @@
 <script>
 export default {
   name: "Footer"
- 
 }
 </script>
 
 <style scoped>
-    footer {
-      margin-top: auto;
-      font-size: 16px;
-      align-content: center;
-      color: white;
-    }
-    img {
-      width: 100px;
-    }
+  footer {
+    margin-top: auto;
+    font-size: 16px;
+    align-content: center;
+    color: white;
+  }
+  img {
+    width: 100px;
+  }
 </style>

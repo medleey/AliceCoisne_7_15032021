@@ -5,10 +5,10 @@
               <b-list-group-item class='name-user pl-0'>
                   <b-avatar variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
                   {{this.post.User.firstName}} {{this.post.User.lastName}} 
-                  <button class="delete-btn" @click="deleteOnePost" v-if="canDelete(this.post)"><i class="fas fa-times"></i></button>
+                  <button data-message="Supprimez votre commentaire ou votre post" class="delete-btn" @click="deleteOnePost" v-if="canDelete(this.post)"><i class="fas fa-times"></i></button>
               </b-list-group-item>
             
-          <b-img :src="this.post.image" fluid alt="Responsive image" class="img-post"></b-img>
+          <b-img :src="this.post.image" fluid alt="Image du post" class="img-post"></b-img>
           </div>
       </div>
       <p class="date">Publié {{this.date}} </p>
@@ -47,10 +47,6 @@ export default {
         }).then((res) => {
             this.$emit('deletePost', this.post.id); //permet de déclencher l'éven deletePost
         })
-        .catch(error => {
-
-        });
-        
     },
     
     canDelete(post) {
