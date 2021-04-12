@@ -5,9 +5,9 @@
         <b-form class="form_login col-md-12" @submit="onSubmit" @reset="onReset" v-if="show">
           <h1 class="title_form"> Identifiez-vous </h1>
           <b-form-group 
-            id="input-group-1"
+            id="email"
             label="Votre adresse mail professionnelle"
-            label-for="input-1"
+            label-for="email"
             description="Nous ne partageons pas vos données."
           >
             <b-form-input class="input_form"
@@ -19,7 +19,7 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group id="input-group-2" label="Mot de passe" label-for="input-2">
+          <b-form-group id="input-group-2" label="Mot de passe" label-for="mot de passe">
             <b-form-input class="input_form"
               id="input-2"
               v-model="form.password"

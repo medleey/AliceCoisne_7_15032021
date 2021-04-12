@@ -3,7 +3,7 @@
       <div class="row">
           <div class="col">
               <b-list-group-item class='name-user pl-0'>
-                  <b-avatar href="#foo" variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
+                  <b-avatar variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
                   {{this.post.User.firstName}} {{this.post.User.lastName}} 
                   <button class="delete-btn" @click="deleteOnePost" v-if="canDelete(this.post)"><i class="fas fa-times"></i></button>
               </b-list-group-item>

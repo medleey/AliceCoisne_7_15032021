@@ -4,7 +4,6 @@ const Post = require('../models/post');
 const fs = require('fs')
 
 exports.createOnePost = (req, res, next) => {
-  console.log(req.body)
   if (req.body.imageUrl) {
     req.body.image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
   }

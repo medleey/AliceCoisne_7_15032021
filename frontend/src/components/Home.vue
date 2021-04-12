@@ -22,17 +22,17 @@
       </div>
     </div>
     
-    <!--mettre Post.vue-->
+    <!--mettre Post.vue / permet de faire la boucle pour afficher tous les posts-->
     <Post  
     v-for="singlePost in allPosts" 
     :key="singlePost.id" :post="singlePost" 
-    v-bind:user="user" @deletePost="deletePost"/> <!--permet de faire la boucle pour afficher tous les posts-->
+    v-bind:user="user" @deletePost="deletePost"/>
   </div>
 </template>
 
 <script>
 import Post from './Post.vue';
-import NewComment from './NewComment.vue';
+import NewComment from './NewComment.vue'; //dois je vraiment les mettre la ? - Alexis 
 import Comment from './Comment.vue';
 import axios from "axios";
 

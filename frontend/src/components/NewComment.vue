@@ -69,7 +69,7 @@ export default {
     font-size: 14px;
   }
   .send-comment:hover {
-    background-color:green;
+    background-color:#E05600;
     color:white;
   }
 </style>

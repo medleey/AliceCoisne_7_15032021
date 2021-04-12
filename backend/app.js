@@ -9,8 +9,8 @@ const commentRoute = require('./routes/comment_routes')
 
 
 require('dotenv-expand')(require('dotenv').config()); // in just single line
-const sequelize = new Sequelize('groupomania', 'root', 'root', { 
-  host: 'localhost',
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS,{ 
+  host: process.env.DB_HOST,
   dialect: 'mysql' /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
 });
 

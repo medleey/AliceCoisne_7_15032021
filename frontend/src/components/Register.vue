@@ -4,14 +4,9 @@
       
       <b-form class="form_register col-md-8" @submit="onSubmit" @reset="onReset" v-if="show">
       <h1 class="title_form"> Pas encore inscrit ? </h1>
-        <b-form-group
-          id="input-group-1"
-          label="Votre adresse mail professionnelle"
-          label-for="input-1"
-          description="Nous ne partageons pas vos données."
-        >
+        <b-form-group id="input-group-1" label="Votre adresse mail professionnelle" label-for="email" description="Nous ne partageons pas vos données.">
           <b-form-input class="input_form"
-            id="input-1"
+            id="email"
             v-model="form.email"
             type="text"
             placeholder="Votre email"
@@ -23,27 +18,27 @@
           </p>
         </b-form-group>
 
-        <b-form-group id="input-group-2" label="Votre nom" label-for="input-2">
+        <b-form-group id="input-group-2" label="Votre nom" label-for="nom de famille">
           <b-form-input class="input_form"
-            id="input-2"
+            id="lastname"
             v-model="form.lastName"
             placeholder="Entrez votre nom"
             required
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-3" label="Votre prénom" label-for="input-3">
+        <b-form-group id="input-group-3" label="Votre prénom" label-for="prénom">
           <b-form-input class="input_form"
-            id="input-3"
+            id="name"
             v-model="form.firstName"
             placeholder="Entrez votre prénom"
             required
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-4" label="Votre mot de passe" label-for="input-4">
+        <b-form-group id="input-group-4" label="Votre mot de passe" label-for="mot de passe">
           <b-form-input class="input_form"
-            id="input-4"
+            id="password"
             v-model="form.password"
             type="password"
             placeholder="Entrez votre mot de passe"
@@ -51,9 +46,9 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-5" label="Service" label-for="input-5">
+        <b-form-group id="input-group-5" label="Service" label-for="service dans l'entreprise">
           <b-form-select class="input_form"
-            id="input-5"
+            id="service"
             v-model="form.service"
             :options="service"
             required

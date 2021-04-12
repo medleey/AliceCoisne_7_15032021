@@ -9,12 +9,12 @@ const { posts, comments } = require('../models');
 exports.register = (req, res, next) => {
   db.users.findOne({ where: {email: req.body.email} }).then((user) => {
     if(!user){
-      bcrypt.hash(req.body.password, 10) // plus il y a de boucles, plus c'est dur de casser de code = salage du mdp
+      bcrypt.hash(req.body.password, 10) //salage du mdp
         .then(hash => {
           //vérification email via validator.validate (package - npm install)
           let formValide = validator.validate(req.body.email); // true
           if (formValide) { 
-            const user = db.users.create({ //permet de créer un nouvel user
+            const user = db.users.create({
               firstName: req.body.firstName,
               lastName: req.body.lastName,
               email: req.body.email,
@@ -70,37 +70,19 @@ exports.login = (req, res, next) => {
 
 // POUR MODIFIER SES INFORMATIONS 
 exports.update = (req, res, next) => {
-  const paramsToModify = {
-    service: req.body.userService
-  };
+  const paramsToModify = {service: req.body.userService};
 
   if (req.body.imageUrl) {
     req.body.imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
     paramsToModify.profilPicture = req.body.imageUrl;
   }
-  
-
     db.users.findOne({where:{id: req.body.userId}})
     .then(user => {
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé !' }); 
       }
-
-      if(req.body.newPassword && req.body.newPassword !== "undefined"){
-        bcrypt.compare(req.body.currentPassword, user.password)
-          .then(valid => {
-            if (!valid) {
-              return res.status(401).json({ error: 'Mot de passe incorrect !' });
-            }
-            bcrypt.hash(req.body.newPassword, 10)
-            .then(hash => {
-              paramsToModify.password = hash;
-              this.updateUser(paramsToModify,req.body.userId,res);
-            }).catch(error => res.status(500).json({ error }));
-          }).catch(error => res.status(500).json({ error }));
-      } else {
-        this.updateUser(paramsToModify,req.body.userId,res);
-      }
+      this.updateUser(paramsToModify,req.body.userId,res);
+      
     }).catch(error => res.status(500).json({ error }));
  };
 
@@ -127,15 +109,8 @@ exports.getOneUser = (req, res, next) => {
 //POUR SUPPRIMER SON COMPTE
 exports.deleteUser = (req, res, next) => {
   db.users.destroy({where:{id: req.params.id}})
-    .then(() => {
-      db.posts.findAll({where: {userId: req.params.id}}).then((posts) => {
-        if(posts){
-          posts.map((post) => {
-            db.posts.destroy({where:{id: post.dataValues.id}});
-            db.comments.destroy({where:{postId: post.dataValues.id}});
-          });
-        }
-      }).then(() => res.status(200).json(req.params.id + " has been deleted"))
-      .catch((error) => res.status(500).json({error: error}));
-    }).catch((error) => res.status(500).json({error: error}));
+    .then(() => db.posts.destroy({where:{userId : req.params.id}}))
+    .then(() => db.comments.destroy({where:{userId : req.params.id}}))
+    .then(() => res.status(200).json(req.params.id + " has been deleted"))
+    .catch((error) => res.status(500).json({error: error}));
 };

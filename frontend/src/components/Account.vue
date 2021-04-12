@@ -21,8 +21,6 @@
               <b-form-file @change="onImageChange" accept="image/jpeg,image/gif,image/png,image/x-eps" v-model="form.image" class="mt-3" plain></b-form-file>
               <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
             </b-form-group>
-          <!--  <b-button type="button" class="btn-edit mr-2" variant="success" v-if="editInfo">Modifier</b-button>
-            <b-button class="btn-delete" variant="danger" v-if="editInfo">Supprimer</b-button>-->
         </div>
       </div>
       <div class="row d-flex flex-row">
@@ -40,32 +38,12 @@
         <form @submit.prevent="submitInfo">
           <ul class="p-0" v-if="editInfo">
             <li>
-              <b-form-group id="input-group-1" label="Service" label-for="input-1">
+              <b-form-group id="input-service" label="Service" label-for="services">
                 <b-form-select class="input_form"
-                  id="input-1"
+                  id="services"
                   v-model="user.service"
                   :options="services"
                 ></b-form-select>
-              </b-form-group>
-            </li>
-            <li>
-              <b-form-group id="input-group-2" label="Votre ancien mot de passe" label-for="input-2">
-                <b-form-input class="input_form"
-                  id="input-2"
-                  v-model="form.currentPassword"
-                  type="password"
-                  placeholder="Entrez votre ancien mot de passe"
-                ></b-form-input>
-              </b-form-group>
-            </li>
-            <li>
-              <b-form-group id="input-group-3" label="Votre nouveau mot de passe" label-for="input-3">
-                <b-form-input class="input_form"
-                  id="input-3"
-                  v-model="form.newPassword"
-                  type="password"
-                  placeholder="Entrez votre nouveau mot de passe"
-                ></b-form-input>
               </b-form-group>
             </li>
           </ul>
@@ -73,7 +51,7 @@
             <b-button type="submit" class="mb-2" variant="outline-success" v-if="editInfo">Enregistrer</b-button>
           </div>
         </form>
-        <b-button type="button" class="mr-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
+        <b-button type="button" class="mr-2 mb-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
         <b-button class="btn-delete" variant="outline-danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
       </div>
     </div>
@@ -124,10 +102,6 @@ export default {
       if (this.form.imageUrl != "") {
         postData.append("image", this.form.image);
         postData.append("imageUrl", this.form.image.name);
-      }
-      if (this.form.currentPassword != "") {
-        postData.append("currentPassword", this.form.currentPassword);
-        postData.append("newPassword", this.form.newPassword);
       }
       postData.append("userService", this.user.service);
       postData.append("userId", this.user.id);
