@@ -11,3 +11,5 @@ Il faut changer les configurations de connexion à la base de données dans le a
 Utilisation de mySQL.
 Il faut modifier les variables du .env 
 Vous pouvez utiliser la commande : npx sequelize-cli db:migrate pour migrer
+
+Le script SQL est disponible à la racine du projet 
