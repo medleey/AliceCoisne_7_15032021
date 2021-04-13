@@ -48,11 +48,11 @@
             </li>
           </ul>
           <div class="b-col">
-            <b-button data-message="enregistrez vos modifications de compte" type="submit" class="mb-2" variant="outline-success" v-if="editInfo">Enregistrer</b-button>
+            <b-button aria-label="enregistrer mes modifications" type="submit" class="mb-2" variant="outline-success" v-if="editInfo">Enregistrer</b-button>
           </div>
         </form>
-        <b-button data-message="modifiez votre compte" type="button" class="mr-2 mb-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
-        <b-button data-message="supprimez votre compte définitivement" class="btn-delete" variant="outline-danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
+        <b-button aria-label="modifier mon compte" type="button" class="mr-2 mb-2" variant="outline-success" v-if="!editInfo" v-on:click="editInfo = !editInfo">Modifier</b-button>
+        <b-button aria-label="supprimer mon compte" type="button" class="btn-delete" variant="outline-danger" @click="deleteUser">Supprimer définitivement mon compte</b-button>
       </div>
     </div>
   </div>

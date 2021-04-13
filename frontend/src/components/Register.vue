@@ -55,8 +55,8 @@
           ></b-form-select>
         </b-form-group>
 
-        <b-button data-message="envoyez votre connexion" type="submit" variant="primary">Envoyer</b-button>
-        <b-button data-message="annulez votre connexion" type="reset" variant="danger">Annuler</b-button>
+        <b-button aria-label="envoyer mon inscription" type="submit" variant="primary">Envoyer</b-button>
+        <b-button aria-label="annuler mon inscription" type="reset" variant="danger">Annuler</b-button>
       </b-form>
     </div>
   </div>

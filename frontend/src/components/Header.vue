@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
   .gm-logo {
-      width: 150px;
+    width: 150px;
   }
   .container {
     width: 50%;
@@ -63,7 +63,7 @@ export default {
     color: white;
   }
   .gm-banner {
-      background-color: grey;
+    background-color: grey;
   }
   .logout-btn {
     cursor: pointer;

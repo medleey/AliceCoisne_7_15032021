@@ -8,7 +8,7 @@
         </b-list-group-item>
         <div class="p-1 ml-2 comment-user">
             <p class="mb-0"><b>{{this.comment.User.firstName}} {{this.comment.User.lastName}}</b>
-            <button data-message="Supprimez votre commentaire ou votre post"class="delete-btn" @click="deleteOneComment" v-if="canDelete(this.comment)" ><i class="fas fa-times"></i></button>
+            <button aria-label="supprimer mon commentaire" class="delete-btn" @click="deleteOneComment" v-if="canDelete(this.comment)" ><i class="fas fa-times"></i></button>
             </p>
             <p class="mb-0">{{this.comment.content}}</p>
         </div>
