@@ -3,16 +3,17 @@
       <div class="row">
           <div class="col">
               <b-list-group-item class='name-user pl-0'>
-                  <b-avatar variant="primary" :src="this.post.User.profilPicture" class="align-baseline"></b-avatar>
-                  {{this.post.User.firstName}} {{this.post.User.lastName}} 
+                  <b-avatar variant="primary" :src="this.post.User.profilPicture" class="align-center"></b-avatar>
+                  <span class="pl-1 mt-1"><b>{{this.post.User.firstName}} {{this.post.User.lastName}}</b></span>
                   <button aria-label="supprimer mon post" class="delete-btn" @click="deleteOnePost" v-if="canDelete(this.post)"><i class="fas fa-times"></i></button>
               </b-list-group-item>
+              <p class="mb-0 post-content">{{this.post.content}}</p>
             
-          <b-img :src="this.post.image" fluid alt="Image du post" class="img-post img-fluid"></b-img>
+          <b-img v-if="this.post.image" :src="this.post.image" fluid alt="Image du post" class="img-post img-fluid mt-2"></b-img>
           </div>
       </div>
       <p class="date">Publié {{this.date}} </p>
-      <p>{{this.post.content}}</p>
+      
       <Comment v-for="singleComment in post.comments" :key="singleComment.id" :comment="singleComment" v-bind:user="user"/>
       <NewComment v-bind:postId="post.id"/>
   </div>
@@ -70,6 +71,9 @@ export default {
     .list-group-item{
         background-color: unset;
     }
+    .post-content{
+        font-size:15px;
+    }
     .img-post {
         padding: 0px;
     }
@@ -77,11 +81,12 @@ export default {
         width:100%;
     }
     .name-user {
+        font-size:15px;
         border: none;
     }
     .date {
         margin-top: 10px;
-        font-size: 14px;
+        font-size: 13px;
         font-style: italic;
     }
     .delete-btn {

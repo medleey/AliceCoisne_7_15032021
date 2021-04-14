@@ -1,10 +1,10 @@
 <template>
   <div>
     <form @submit.prevent="submitComment">
-      <div class="form-group">
-        <h3 class="font-normal texte-grey-darkest text-sm mb-3">Écrivez votre commentaire</h3>
+      <div class="form-group mb-0">
+        <h3 class="font-normal text-sm mb-2">Écrivez votre commentaire</h3>
         <p class="error-content mb-1" v-if="errors.content">{{errors.content}}</p>
-        <textarea v-model="form.content" v-bind:class="{'border-danger':errors.content}" class="border rounded p-3 mb-8 w-100" ></textarea>
+        <textarea v-model="form.content" v-bind:class="{'border-danger':errors.content}" class="border rounded p-3 mb-2 w-100" ></textarea>
       </div>
       <button data-message="envoyez votre commentaire" type="submit" class="border rounded py-2 send-comment">Envoyer mon commentaire</button>
     </form>
@@ -62,6 +62,9 @@ export default {
   h3{
     font-size: 16px;
     margin: none;
+  }
+  .font-normal{
+    font-size:14px;
   }
   .error-content {
     color: crimson;
