@@ -40,7 +40,10 @@ export default {
         })
     },
   canDelete(comment) {
-        return comment.userId+"" === localStorage.userId || this.user.isAdmin; // permet de convertir en string 
+    if(this.user){
+      return comment.userId+"" === localStorage.userId || this.user.isAdmin; // permet de convertir en string 
+    }
+    return false;
     }
  }
 } 

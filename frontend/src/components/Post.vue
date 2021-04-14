@@ -51,7 +51,10 @@ export default {
     },
     
     canDelete(post) {
-        return post.userId+"" === localStorage.userId || this.user.isAdmin; // permet de convertir en string 
+        if(this.user){
+            return post.userId+"" === localStorage.userId || this.user.isAdmin; // permet de convertir en string 
+        }
+        return false;
     }
   },
 

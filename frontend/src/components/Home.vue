@@ -17,7 +17,7 @@
           </div>
           <b-form-file @change="onImageChange" accept="image/jpeg,image/gif,image/png,image/x-eps" v-model="form.image" class="mt-3" plain></b-form-file>
           <div class="mt-1 select-file">Fichier sélectionné: {{ image ? image.name : '' }}</div>
-          <b-button data-message="Publier votre post"class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
+          <b-button aria-label="Publier mon post" class="mt-2 send-post navbar-right" variant="outline-primary" type="submit">Publier</b-button>  
         </b-form>
       </div>
     </div>

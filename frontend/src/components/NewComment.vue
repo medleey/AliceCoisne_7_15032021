@@ -6,7 +6,7 @@
         <p class="error-content mb-1" v-if="errors.content">{{errors.content}}</p>
         <textarea v-model="form.content" v-bind:class="{'border-danger':errors.content}" class="border rounded p-3 mb-2 w-100" ></textarea>
       </div>
-      <button data-message="envoyez votre commentaire" type="submit" class="border rounded py-2 send-comment">Envoyer mon commentaire</button>
+      <button aria-label="envoyer le commentaire" type="submit" class="border rounded py-2 send-comment">Envoyer mon commentaire</button>
     </form>
   </div>
  <!-- à mettre dans le Post.vue + gestion de cette .vue  v-model="comment.content"-->
